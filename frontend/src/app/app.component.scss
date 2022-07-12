@@ -1,0 +1,45 @@
+.navbar {
+  background-color: #d1d1f9;
+  padding: 1rem;
+}
+
+.navbar-brand {
+  padding: 0;
+  color: #ffffff;
+}
+
+.navbar-brand h1 {
+  font-size: 3rem;
+}
+
+.navbar-brand img {
+  max-height: 3.5rem;
+}
+
+.navbar-brand a {
+  text-decoration: none !important;
+}
+
+.nav-link, .dropdown-item {
+  cursor: pointer;
+  color: #ffffff;
+}
+
+.nav-link:hover, .nav-link:focus {
+  color: #ffffff;
+}
+
+.footer {
+  background-color: #d1d1f9;
+  color: #ffffff;
+}
+
+.footer a {
+  color: #ffffff !important;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
