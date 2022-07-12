@@ -46,6 +46,7 @@
     "config": "^3.3.7",
     "cookie-parser": "^1.4.6",
     "express-winston": "^4.2.0",
+    "got": "^12.1.0",
     "helmet": "^5.1.0",
     "http-errors": "^2.0.0",
     "mysql2": "^2.3.3",
