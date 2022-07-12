@@ -14,6 +14,11 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then(mod => mod.HomeModule),
   },
   {
+    path: 'monitors',
+    loadChildren: () => import('./monitors/monitors.module').then(mod => mod.MonitorsModule),
+    canActivate: [AuthenticationGuard],
+  },
+  {
     path: '**',
     redirectTo: 'monitors'
   },
