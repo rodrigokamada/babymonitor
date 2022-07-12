@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 
 // Modules
+import { TranslocoRootModule } from './shared/modules/transloco-root.module';
 import { AppRoutingModule } from './app-routing.module';
 
 // Components
@@ -17,6 +18,8 @@ import { AppComponent } from './app.component';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    // Modules
+    TranslocoRootModule,
     AppRoutingModule,
   ],
   providers: [
