@@ -7,6 +7,10 @@
   "cors": {
   },
 
+  "logger": {
+    "level": "silly"
+  },
+
   "mysql": {
     "url": "mysql://87o6fdg8dh6x:pscale_pw_jn0qRlnXlFVSTOEEizJv5LgMJSbhfuCiz5HUWxDTp8Y@2a7rcdmzhp8o.us-east-1.psdb.cloud/babymonitor?ssl={'rejectUnauthorized':true}"
   },
