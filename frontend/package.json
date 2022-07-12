@@ -27,6 +27,7 @@
     "@ngneat/transloco": "^4.1.0",
     "aos": "^2.3.4",
     "load-awesome": "^1.1.0",
+    "ng-recaptcha": "^10.0.0",
     "ngx-spinner": "^14.0.0",
     "ngx-toastr": "^15.0.0",
     "rxjs": "~7.5.5",
