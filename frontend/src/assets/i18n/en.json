@@ -1,5 +1,32 @@
 {
 
+  "error": {
+    "emailInvalid": "Invalid email format.",
+    "maxlength": "This field must have at most {{length}} characters.",
+    "minlength": "This field must have at least {{length}} characters.",
+    "minlength1": "This field must have at least 1 character.",
+    "problem": "A problem occurred! Please try again!",
+    "required": "This field is required.",
+    "validation": "Check and correct any validation errors!"
+  },
+
+  "menu": {
+    "contact": "Contact",
+    "home": "Home",
+    "language": "Language",
+    "monitors": "Monitors",
+    "myAccount": "My account",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "signUp": "Sign up"
+  },
+
+  "button": {
+    "send": "Send",
+    "signIn": "Sign in",
+    "signUp": "Sign up"
+  },
+
   "app": {
     "copyright": "Copyright © Baby Monitor. All rights reserved.",
     "hackathon1": "Open source application built with",
@@ -7,6 +34,26 @@
     "hackathon3": "hackathon.",
     "share": "Share with",
     "signOutSuccess": "Thanks for visiting and come back soon!"
+  },
+
+  "home": {
+    "contact": "Contact",
+    "description": "",
+    "doubtSuggestionCritic": "Do you have any doubt, suggestion or critic?",
+    "email": "Email",
+    "emailPlaceholder": "your-name@provider.com",
+    "features1": "",
+    "message": "Message",
+    "messagePlaceholder": "Your message.",
+    "messageSent": "Message sent successfully. Wait for our contact.",
+    "password": "Password",
+    "sendMessage": "Send us a message using the form below.",
+    "signIn": "Sign In",
+    "signInSuccess": "Welcome and have fun!",
+    "signUp": "Sign Up",
+    "signUpSuccess": "Welcome and have fun!",
+    "subject": "Subject",
+    "subjectPlaceholder": "A subject"
   }
 
 }
