@@ -5,6 +5,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ToastrModule } from 'ngx-toastr';
+import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
+import { ShareIconsModule } from 'ngx-sharebuttons/icons';
+
+// Locales
+import '@angular/common/locales/global/en';
 
 // Modules
 import { TranslocoRootModule } from './shared/modules/transloco-root.module';
@@ -29,6 +34,8 @@ import { AppComponent } from './app.component';
       enableHtml: true,
       progressBar: true,
     }),
+    ShareButtonsModule,
+    ShareIconsModule,
     // Modules
     TranslocoRootModule,
     AppRoutingModule,
