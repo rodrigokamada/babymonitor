@@ -70,6 +70,18 @@ export class CognitoService {
     });
   }
 
+  public getSession(): Observable<any> {
+    return new Observable((observer: Subscriber<any>) => {
+      Auth.currentSession()
+      .then((result: any) => {
+        observer.next(result);
+        observer.complete();
+      }).catch((error: any) => {
+        observer.error(error);
+      });
+    });
+  }
+
   public getUser(): Observable<any> {
     return new Observable((observer: Subscriber<any>) => {
       Auth.currentUserInfo()
