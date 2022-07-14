@@ -12,7 +12,7 @@ export class UsersModel {
   image?: string;
   locale?: string;
   status?: string;
-  code?: string;
+  code?: string; // Confirmation code for Amazon Cognito
   token?: string;
 
 }
