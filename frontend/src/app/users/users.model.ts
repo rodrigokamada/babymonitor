@@ -12,7 +12,8 @@ export class UsersModel {
   image?: string;
   locale?: string;
   status?: string;
-  code?: string; // Confirmation code for Amazon Cognito
-  token?: string;
+  code?: string; // Confirmation code from Amazon Cognito
+  jwt?: string; // JWT from Amazon Cognito
+  token?: string; // Token from Google reCAPTCHA
 
 }
