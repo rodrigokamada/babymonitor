@@ -1,13 +1,12 @@
+import createError from 'http-errors';
 import config from 'config';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
 import * as expressWinston from 'express-winston';
 import helmet from 'helmet';
-import createError from 'http-errors';
 
 import logger from './utils/logger';
-import middlewares from './middlewares';
 import routes from './routes';
 
 const app = express();
@@ -20,9 +19,6 @@ app.use(cors(config.get('cors')));
 
 logger.info('Starting the Helmet settings');
 app.use(helmet());
-
-logger.info('Starting the middlewares settings');
-app.use(middlewares);
 
 logger.info('Starting the routes');
 app.use('/', routes);
