@@ -3,10 +3,12 @@ process.env.NODE_CONFIG_DIR = `${__dirname}/../config`;
 process.env.NODE_ENV = process.env.NODE_ENV || 'production';
 
 import config from 'config';
+import { ExpressPeerServer } from 'peer';
 import http from 'http';
 
 import logger from './utils/logger';
 import app from './app';
+import { SocketServer } from './socket-server';
 
 const applicationConfig: any = config.get('application');
 
@@ -53,6 +55,15 @@ function onError(error: any) {
 
 logger.info(`Starting the server on the port [${port}]`);
 const server = http.createServer(app);
+
+logger.info('Starting the Peer server');
+const peerServer = ExpressPeerServer(server, {
+  debug: true,
+} as any);
+app.use('/stream', peerServer);
+
+const socketServer = new SocketServer(server);
+socketServer.init();
 
 function onListening() {
   const addr: any = server.address();
