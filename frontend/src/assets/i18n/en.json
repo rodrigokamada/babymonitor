@@ -22,6 +22,14 @@
   },
 
   "button": {
+    "back": "Back",
+    "close": "Close",
+    "confirm": "Confirm",
+    "create": "Create",
+    "delete": "Delete",
+    "invite": "Invite",
+    "loadMore": "Load more",
+    "save": "Save",
     "send": "Send",
     "signIn": "Sign in",
     "signUp": "Sign up"
@@ -37,12 +45,21 @@
   },
 
   "home": {
+    "backSignUp": "Back to sign up", 
+    "code": "Code",
+    "codePlaceholder": "123456",
+    "confirmSignUp": "Confirm Sign Up",
+    "confirmSignUpSuccess": "The sign up was successfully confirmed! Now you can sign in.",
+    "confirmYourSignUp": "Confirm your sign up",
     "contact": "Contact",
-    "description": "",
+    "description": "Monitoring your baby in your hand.",
     "doubtSuggestionCritic": "Do you have any doubt, suggestion or critic?",
     "email": "Email",
+    "emailAlreadyExists": "Email already exists!",
     "emailPlaceholder": "your-name@provider.com",
-    "features1": "",
+    "features1": "Connection to one or more devices.",
+    "features2": "Easy to use.",
+    "features3": "Free.",
     "message": "Message",
     "messagePlaceholder": "Your message.",
     "messageSent": "Message sent successfully. Wait for our contact.",
@@ -51,9 +68,30 @@
     "signIn": "Sign In",
     "signInSuccess": "Welcome and have fun!",
     "signUp": "Sign Up",
-    "signUpSuccess": "Welcome and have fun!",
+    "signUpInvalidPassword": "The password must be at least 8 characters length, contain at least 1 number, 1 special character, 1 uppercase letter and 1 lowercase letter.",
+    "signUpSuccess": "The sign up was successfully done! Confirm your sign up with the code received by email.",
     "subject": "Subject",
     "subjectPlaceholder": "A subject"
+  },
+
+  "monitors": {
+    "code": "Code",
+    "create1": "Click here",
+    "create2": "to create a monitor and share with other users.",
+    "deleteConfirmation": "Do you really want to delete the monitor <b>{{code}}</b>?",
+    "deleteSuccess": "The monitor was successfully deleted!",
+    "deleteTooltip": "Delete this monitor",
+    "editTooltip": "Edit this monitor",
+    "monitors": "Monitors",
+    "name": "Name",
+    "namePlaceholder": "Some name",
+    "notFound": "There are no monitors.",
+    "saveSuccess": "The monitor was successfully saved!",
+    "viewTooltip": "View this monitor"
+  },
+
+  "viewers": {
+    "viewers": "Viewers"
   }
 
 }
