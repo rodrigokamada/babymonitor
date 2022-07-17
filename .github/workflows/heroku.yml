@@ -22,10 +22,6 @@ jobs:
       working-directory: ./backend
       run: npm install
 
-    - name: Run the list
-      working-directory: ./backend
-      run: npm run lint
-
     - name: Build
       working-directory: ./backend
       run: npm run build
