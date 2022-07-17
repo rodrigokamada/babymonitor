@@ -75,9 +75,9 @@ export class MonitorsListComponent implements OnInit {
     });
   }
 
-  public openView(id?: string): void {
+  public openView(monitor: MonitorsModel): void {
     this.spinnerService.show();
-    this.router.navigate(['/viewers'], { queryParams: { id }, skipLocationChange: true });
+    this.router.navigate(['/viewers'], { queryParams: { ...monitor }, skipLocationChange: true });
   }
 
   public openForm(id?: string): void {
