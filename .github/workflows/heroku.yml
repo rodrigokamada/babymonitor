@@ -35,5 +35,5 @@ jobs:
         heroku_email: ${{secrets.HEROKU_EMAIL}}
         appdir: ./backend/dist
         branch: "main"
-        dontuseforce: false
+        dontuseforce: true
 
