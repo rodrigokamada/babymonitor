@@ -56,14 +56,21 @@ function onError(error: any) {
 logger.info(`Starting the server on the port [${port}]`);
 const server = http.createServer(app);
 
+const socketServer = new SocketServer(server);
+socketServer.init();
+
 logger.info('Starting the Peer server');
 const peerServer = ExpressPeerServer(server, {
   debug: true,
 } as any);
-app.use('/stream', peerServer);
+peerServer.on('connection', (client: any) => {
+  logger.debug('connected:', client);
+});
+peerServer.on('disconnect', (client: any) => {
+  logger.debug('disconnected:', client);
+});
+app.use('/peerjs', peerServer);
 
-const socketServer = new SocketServer(server);
-socketServer.init();
 
 function onListening() {
   const addr: any = server.address();
