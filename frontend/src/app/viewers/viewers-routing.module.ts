@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 // Components
-import { ViewersComponent } from './viewers.component';
+import { ViewersListComponent } from './viewers-list.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ViewersComponent,
+    component: ViewersListComponent,
   },
 ];
 
