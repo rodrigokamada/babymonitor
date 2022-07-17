@@ -22,6 +22,10 @@ jobs:
       working-directory: ./backend
       run: npm install
 
+    - name: Run the list
+      working-directory: ./backend
+      run: npm run lint
+
     - name: Build
       working-directory: ./backend
       run: npm run build
@@ -34,4 +38,5 @@ jobs:
         heroku_app_name: "baby-monitor-server"
         heroku_email: ${{secrets.HEROKU_EMAIL}}
         appdir: ./backend/dist
+        branch: "main"
 
