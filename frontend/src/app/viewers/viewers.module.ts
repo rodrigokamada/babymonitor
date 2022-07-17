@@ -11,7 +11,8 @@ import { ViewersRoutingModule } from './viewers-routing.module';
 import { ViewersService } from './viewers.service';
 
 // Components
-import { ViewersComponent } from './viewers.component';
+import { ViewersFormComponent } from './viewers-form.component';
+import { ViewersListComponent } from './viewers-list.component';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { ViewersComponent } from './viewers.component';
   ],
   declarations: [
     // Components
-    ViewersComponent,
+    ViewersFormComponent,
+    ViewersListComponent,
   ],
   providers: [
     // Services
