@@ -2,12 +2,17 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 // Components
-import { MonitorsComponent } from './monitors.component';
+import { MonitorsFormComponent } from './monitors-form.component';
+import { MonitorsListComponent } from './monitors-list.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: MonitorsComponent,
+    component: MonitorsListComponent,
+  },
+  {
+    path: 'form',
+    component: MonitorsFormComponent,
   },
 ];
 
