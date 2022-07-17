@@ -1,15 +1,22 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ToastrModule } from 'ngx-toastr';
 import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ShareIconsModule } from 'ngx-sharebuttons/icons';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 
 // Locales
 import '@angular/common/locales/global/en';
+
+// Environments
+import { environment } from '../environments/environment';
+
+// Interceptors
+import { HttpHeaderInterceptor } from './shared/interceptors/http-header.interceptor';
 
 // Modules
 import { TranslocoRootModule } from './shared/modules/transloco-root.module';
@@ -36,11 +43,25 @@ import { AppComponent } from './app.component';
     }),
     ShareButtonsModule,
     ShareIconsModule,
+    SocketIoModule.forRoot({
+      url: environment.server,
+      options: environment.socket,
+    } as SocketIoConfig),
     // Modules
     TranslocoRootModule,
     AppRoutingModule,
   ],
   providers: [
+    {
+      provide: LOCALE_ID,
+      useValue: 'en',
+    },
+    // Interceptors
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpHeaderInterceptor,
+      multi: true,
+    },
   ],
   bootstrap: [
     AppComponent,
