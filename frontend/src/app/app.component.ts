@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ViewportScroller } from '@angular/common';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -20,7 +21,8 @@ export class AppComponent implements OnInit {
   languagesList: any[];
   toggle: boolean;
 
-  constructor(private router: Router,
+  constructor(private viewport: ViewportScroller,
+              private router: Router,
               private spinnerService: NgxSpinnerService,
               private toastrService: ToastrService,
               private translocoService: TranslocoService,
@@ -48,6 +50,10 @@ export class AppComponent implements OnInit {
     } else {
       this.router.navigate(['/home']);
     }
+  }
+
+  public goTop(): void {
+    this.viewport.scrollToPosition([0, 0]);
   }
 
   public changeLanguage(locale: string): void {
