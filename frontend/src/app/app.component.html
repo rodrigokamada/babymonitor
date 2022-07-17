@@ -13,7 +13,7 @@
     <!-- Not authenticated -->
     <ul class="navbar-nav" *ngIf="!user">
       <li class="nav-item align-self-center" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" (click)="toggle = false">
-        <a class="nav-link" routerLink="/home" fragment="home">
+        <a class="nav-link" (click)="goTop()">
           <i class="fas fa-home pe-1"></i>
           {{ "menu.home" | transloco | uppercase }}
         </a>
@@ -36,17 +36,17 @@
           {{ "menu.contact" | transloco | uppercase }}
         </a>
       </li>
-      <li class="nav-item align-self-center text-center dropdown">
-        <a id="menuLanguage" class="nav-link dropdown-toggle d-inline-block text-center" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <!--li ngbDropdown class="nav-item align-self-center text-center">
+        <a id="menuLanguage" ngbDropdownToggle class="nav-link d-inline-block text-center">
           <i class="fas fa-globe pe-1"></i>
           {{ "menu.language" | transloco | uppercase }}
         </a>
-        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="menuLanguage">
+        <div ngbDropdownMenu class="dropdown-menu dropdown-menu-end" aria-labelledby="menuLanguage">
           <a class="dropdown-item" (click)="changeLanguage(item.locale)" *ngFor="let item of languagesList" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
             {{ item.name | uppercase }}
           </a>
         </div>
-      </li>
+      </li-->
     </ul>
 
     <!-- Authenticated -->
@@ -57,22 +57,22 @@
           {{ "menu.monitors" | transloco | uppercase }}
         </a>
       </li>
-      <li class="nav-item align-self-center text-center dropdown">
-        <a id="navbarProfile" class="nav-link dropdown-toggle d-inline-block text-center" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <li ngbDropdown class="nav-item align-self-center text-center">
+        <a id="navbarProfile" ngbDropdownToggle class="nav-link d-inline-block text-center menu-profile">
           <ng-template [ngIf]="user.image" [ngIfElse]="menuWithoutImage">
-            <img src="{{ user.image }}" alt="{{ user.name || user.firstLetter }}" class="rounded-circle menu-avatar hw-35px">
+            <img src="{{ user.image }}" alt="{{ user.name || user.firstLetter }}" class="rounded-circle">
           </ng-template>
           <ng-template #menuWithoutImage>
-            <div class="rounded-circle menu-avatar hw-35px"><span>{{ user.firstLetter }}</span></div>
+            <div class="rounded-circle"><span>{{ user.firstLetter }}</span></div>
           </ng-template>
         </a>
-        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarProfile">
+        <div ngbDropdownMenu class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarProfile">
           <div class="dropdown-item p-3 text-center submenu-profile">
             <ng-template [ngIf]="user.image" [ngIfElse]="submenuWithoutImage">
-              <img src="{{ user.image }}" alt="{{ user.name || user.firstLetter }}" class="rounded-circle submenu-avatar">
+              <img src="{{ user.image }}" alt="{{ user.name || user.firstLetter }}" class="rounded-circle">
             </ng-template>
             <ng-template #submenuWithoutImage>
-              <div class="rounded-circle submenu-avatar hw-50px f-15"><span>{{ user.firstLetter }}</span></div>
+              <div class="rounded-circle"><span>{{ user.firstLetter }}</span></div>
             </ng-template>
             <ng-template [ngIf]="user.name">
               <div class="pt-2"><small>{{ user.name }}</small></div>
@@ -97,7 +97,7 @@
   <router-outlet></router-outlet>
 </div>
 
-<div class="footer p-5" *ngIf="!user">
+<div class="footer p-5 mt-5" *ngIf="!user">
   <div class="col-sm-12 text-center pb-2">
     {{ "app.share" | transloco }}
   </div>
