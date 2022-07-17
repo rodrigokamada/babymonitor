@@ -1,21 +1,21 @@
 
-<section id="home" class="py-5">
+<section id="home" class="pt-5">
   <div class="row justify-content-center">
     <div class="col-sm-10">
       <div class="row">
         <div class="col-sm-6 py-3">
-          <h3 [innerHTML]="'home.description' | transloco" data-aos="zoom-in" data-aos-duration="1000"></h3>
+          <h1 [innerHTML]="'home.description' | transloco" data-aos="zoom-in" data-aos-duration="1000"></h1>
         </div>
         <div class="col-sm-6 py-3">
           <ul>
             <li data-aos="fade-right" data-aos-delay="400" data-aos-duration="1000">
-              {{ "home.features1" | transloco }}
+              <h6>{{ "home.features1" | transloco }}</h6>
             </li>
             <li data-aos="fade-right" data-aos-delay="800" data-aos-duration="1000">
-              {{ "home.features2" | transloco }}
+              <h6>{{ "home.features2" | transloco }}</h6>
             </li>
             <li data-aos="fade-right" data-aos-delay="1200" data-aos-duration="1000">
-              {{ "home.features3" | transloco }}
+              <h6>{{ "home.features3" | transloco }}</h6>
             </li>
           </ul>
         </div>
@@ -39,7 +39,7 @@
               <div *ngIf="emailSignIn.errors?.['required']">
                 {{ "error.required" | transloco }}
               </div>
-              <div *ngIf="email.errors?.['minlength']">
+              <div *ngIf="emailSignIn.errors?.['minlength']">
                 {{ "error.minlength1" | transloco }}
               </div>
               <div *ngIf="!emailSignIn.errors?.['required'] && emailSignIn.errors?.['emailValidator']">
@@ -60,7 +60,7 @@
                 <div *ngIf="passwordSignIn.errors?.['required']">
                   {{ "error.required" | transloco }}
                 </div>
-                <div *ngIf="email.errors?.['minlength']">
+                <div *ngIf="passwordSignIn.errors?.['minlength']">
                   {{ "error.minlength1" | transloco }}
                 </div>
               </div>
@@ -74,7 +74,7 @@
         </div>
         <div class="row">
           <div class="col-sm-12 mb-2 d-grid">
-            <button type="button" class="btn btn-sm btn-application" (click)="signIn(formSignIn)">{{ "button.signIn" | transloco }}</button>
+            <button type="button" class="btn btn-sm btn-primary" (click)="signIn(formSignIn)">{{ "button.signIn" | transloco }}</button>
           </div>
         </div>
         <div class="row">
@@ -110,7 +110,7 @@
 
 <section id="signUp">
   <div class="card mx-auto" data-aos="fade-up" data-aos-duration="1000">
-    <div class="card-body m-4">
+    <div class="card-body m-4" *ngIf="!isConfirmSignUp">
       <h3 class="card-title mb-4 text-center">{{ "home.signUp" | transloco }}</h3>
       <form #formSignUp="ngForm">
         <div class="row">
@@ -121,10 +121,10 @@
               <div *ngIf="emailSignUp.errors?.['required']">
                 {{ "error.required" | transloco }}
               </div>
-              <div *ngIf="email.errors?.['minlength']">
+              <div *ngIf="emailSignUp.errors?.['minlength']">
                 {{ "error.minlength1" | transloco }}
               </div>
-              <div *ngIf="!emailSignUp.errors?.['required'] && emailSignUp.errors?.['emailValidator']">
+              <div *ngIf="!emailSignUp.errors?.['required'] && !emailSignUp.errors?.['minlength'] && emailSignUp.errors?.['emailValidator']">
                 {{ "error.emailInvalid" | transloco }}
               </div>
             </div>
@@ -142,7 +142,7 @@
                 <div *ngIf="passwordSignUp.errors?.['required']">
                   {{ "error.required" | transloco }}
                 </div>
-                <div *ngIf="email.errors?.['minlength']">
+                <div *ngIf="passwordSignUp.errors?.['minlength']">
                   {{ "error.minlength1" | transloco }}
                 </div>
               </div>
@@ -161,7 +161,58 @@
         </div>
         <div class="row">
           <div class="col-sm-12 mb-2 d-grid">
-            <button type="button" class="btn btn-sm btn-application" (click)="signUp(formSignUp)">{{ "button.signUp" | transloco }}</button>
+            <button type="button" class="btn btn-sm btn-primary" (click)="signUp(formSignUp)">{{ "button.signUp" | transloco }}</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 mb-2 text-end">
+            <a routerLink="" (click)="isConfirmSignUp = true" class="text-decoration-none">{{ "home.confirmYourSignUp" | transloco }}</a>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="card-body m-4" *ngIf="isConfirmSignUp">
+      <h3 class="card-title mb-4 text-center">{{ "home.confirmSignUp" | transloco }}</h3>
+      <form #formConfirmSignUp="ngForm">
+        <div class="row">
+          <div class="col-sm-12 mb-2">
+            <label for="emailConfirmSignUp" class="form-label">{{ "home.email" | transloco }}:</label>
+            <input type="text" id="emailConfirmSignUp" name="emailConfirmSignUp" #emailConfirmSignUp="ngModel" [(ngModel)]="userConfirmSignUp.email" placeholder="{{ 'home.emailPlaceholder' | transloco }}" required minlength="1" emailValidator class="form-control form-control-sm" [class.is-invalid]="emailConfirmSignUp.invalid && (emailConfirmSignUp.dirty || emailConfirmSignUp.touched)">
+            <div *ngIf="emailConfirmSignUp.invalid && (emailConfirmSignUp.dirty || emailConfirmSignUp.touched)" class="invalid-feedback">
+              <div *ngIf="emailConfirmSignUp.errors?.['required']">
+                {{ "error.required" | transloco }}
+              </div>
+              <div *ngIf="emailConfirmSignUp.errors?.['minlength']">
+                {{ "error.minlength1" | transloco }}
+              </div>
+              <div *ngIf="!emailConfirmSignUp.errors?.['required'] && !emailConfirmSignUp.errors?.['minlength'] && emailConfirmSignUp.errors?.['emailValidator']">
+                {{ "error.emailInvalid" | transloco }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 mb-2">
+            <label for="codeSignUp" class="form-label">{{ "home.code" | transloco }}:</label>
+            <input type="text" id="codeSignUp" name="codeSignUp" #codeSignUp="ngModel" [(ngModel)]="userConfirmSignUp.code" placeholder="{{ 'home.codePlaceholder' | transloco }}" required minlength="1" class="form-control form-control-sm" [class.is-invalid]="codeSignUp.invalid && (codeSignUp.dirty || codeSignUp.touched)">
+            <div *ngIf="codeSignUp.invalid && (codeSignUp.dirty || codeSignUp.touched)" class="invalid-feedback">
+              <div *ngIf="codeSignUp.errors?.['required']">
+                {{ "error.required" | transloco }}
+              </div>
+              <div *ngIf="codeSignUp.errors?.['minlength']">
+                {{ "error.minlength1" | transloco }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 mb-2 d-grid">
+            <button type="button" class="btn btn-sm btn-primary" (click)="confirmSignUp(formConfirmSignUp)">{{ "button.confirm" | transloco }}</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 mb-2 text-end">
+            <a routerLink="" (click)="isConfirmSignUp = false" class="text-decoration-none">{{ "home.backSignUp" | transloco }}</a>
           </div>
         </div>
       </form>
@@ -252,7 +303,7 @@
         </div>
         <div class="row">
           <div class="col-sm-12 mb-2 d-grid">
-            <button type="button" class="btn btn-sm btn-application" (click)="sendContact(formContact)">{{ "button.send" | transloco }}</button>
+            <button type="button" class="btn btn-sm btn-primary" (click)="sendContact(formContact)">{{ "button.send" | transloco }}</button>
           </div>
         </div>
       </form>

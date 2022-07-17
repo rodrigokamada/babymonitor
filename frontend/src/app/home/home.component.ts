@@ -22,6 +22,8 @@ export class HomeComponent {
 
   userSignIn: UsersModel;
   userSignUp: UsersModel;
+  isConfirmSignUp: boolean;
+  userConfirmSignUp: UsersModel;
   contact: IContacts;
 
   constructor(private router: Router,
@@ -33,6 +35,8 @@ export class HomeComponent {
               private storageService: StorageService) {
     this.userSignIn = new UsersModel();
     this.userSignUp = new UsersModel();
+    this.isConfirmSignUp = false;
+    this.userConfirmSignUp = new UsersModel();
     this.contact = {} as IContacts;
   }
 
@@ -52,7 +56,16 @@ export class HomeComponent {
     this.cognitoService.signIn(this.userSignIn)
     .subscribe({
       next: (success: any) => {
-        this.storageService.setUser(success);
+        if (success && success.attributes && success.signInUserSession && success.signInUserSession.idToken) {
+          const user = new UsersModel();
+          user.id = success.attributes.sub;
+          user.email = success.attributes.email;
+          user.jwt = success.signInUserSession.idToken.jwtToken;
+          user.firstLetter = success.attributes.name ? success.attributes.name : success.attributes.email;
+          user.firstLetter = user.firstLetter!.substring(0, 1).toUpperCase();
+          this.storageService.setUser(user);
+        }
+
         this.userSignIn = new UsersModel();
         this.spinnerService.hide();
         this.translocoService.selectTranslate('home.signInSuccess')
@@ -91,21 +104,56 @@ export class HomeComponent {
     this.cognitoService.signUp(this.userSignUp)
     .subscribe({
       next: (success: any) => {
-        this.storageService.setUser(success);
         this.userSignUp = new UsersModel();
         this.spinnerService.hide();
         this.translocoService.selectTranslate('home.signUpSuccess')
         .subscribe((message: string) => this.toastrService.success(message));
         form.reset();
 
-        this.router.navigate(['/monitors']);
+        this.isConfirmSignUp = true;
       }, error: (error: any) => {
-        if (error && error.error && error.error.status === 'ALREADY_EXISTS') {
-          //this.messageService.showErrorKey('home.alreadyExists');
+        if (error && error.code === 'InvalidPasswordException') {
+          this.translocoService.selectTranslate('home.signUpInvalidPassword')
+          .subscribe((message: string) => this.toastrService.error(message));
+        } else if (error && error.code === 'UsernameExistsException') {
+          this.translocoService.selectTranslate('home.emailAlreadyExists')
+          .subscribe((message: string) => this.toastrService.error(message));
         } else {
           this.translocoService.selectTranslate('error.problem')
           .subscribe((message: string) => this.toastrService.error(message));
         }
+
+        this.spinnerService.hide();
+      },
+    });
+  }
+
+  public confirmSignUp(form: NgForm): void {
+    this.spinnerService.show();
+
+    if (form.invalid) {
+      for (const control in form.controls) {
+        form.controls[control].markAsTouched();
+      }
+      this.spinnerService.hide();
+      this.translocoService.selectTranslate('error.validation')
+      .subscribe((message: string) => this.toastrService.error(message));
+      return;
+    }
+
+    this.cognitoService.confirmSignUp(this.userConfirmSignUp)
+    .subscribe({
+      next: (success: any) => {
+        this.userConfirmSignUp = new UsersModel();
+        this.spinnerService.hide();
+        this.translocoService.selectTranslate('home.confirmSignUpSuccess')
+        .subscribe((message: string) => this.toastrService.success(message));
+        form.reset();
+
+        this.isConfirmSignUp = true;
+      }, error: (error: any) => {
+        this.translocoService.selectTranslate('error.problem')
+        .subscribe((message: string) => this.toastrService.error(message));
 
         this.spinnerService.hide();
       },
