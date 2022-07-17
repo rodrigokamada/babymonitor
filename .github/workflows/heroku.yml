@@ -1,0 +1,40 @@
+name: Heroku
+
+on:
+  push:
+    branches:
+    - main
+
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 16
+
+    - name: Go to the backend folder
+      run: cd backend
+
+    - name: Install the dependencies
+      run: npm install
+
+    - name: Run the list
+      run: npm run lint
+
+    - name: Build
+      run: npm run build
+
+    - name: Sync to Heroku
+      if: success()
+      uses: akhileshns/heroku-deploy@v3.12.12
+      with:
+        heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+        heroku_app_name: "baby-monitor-server"
+        heroku_email: ${{secrets.HEROKU_EMAIL}}
+
