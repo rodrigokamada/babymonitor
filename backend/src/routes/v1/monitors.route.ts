@@ -1,30 +1,114 @@
 import createError from 'http-errors';
 import { Request, Response, Router, NextFunction } from 'express';
 
+import authenticationMiddleware from '../../middlewares/authentication.middleware';
 import logger from '../../utils/logger';
 import { mysql } from '../../utils/mysql';
 import { MonitorsModel } from '../../models/monitors.model';
+import { ViewersModel } from '../../models/viewers.model';
 
 const router = Router();
 
-router.get('/', async (req: Request, res: Response, next: NextFunction) => {
-});
+router.get('/', authenticationMiddleware(), async (req: Request, res: Response, next: NextFunction) => {
+  const userId = (req as any).userId;
 
-router.post('/', async (req: Request, res: Response, next: NextFunction) => {
-  const userId = (req as any).user.id;
+  const size = 50;
+  const offset = (((req.query.page || 1) as number) - 1) * size;
 
   try {
-    const monitor = new MonitorsModel(userId);
+    logger.debug(`Searching the monitors by userId [${userId}]`);
+
+    const total = await mysql.execute(`SELECT COUNT(*) AS total FROM monitors M INNER JOIN viewers V ON V.monitor_id = M.id WHERE V.user_id = '${userId}'`);
+
+    const monitors = await mysql.execute(`SELECT M.* FROM monitors M INNER JOIN viewers V ON V.monitor_id = M.id WHERE V.user_id = '${userId}' LIMIT ${offset}, ${size}`);
+
+    return res.status(200).json({
+      total: total && total.length > 0 ? total[0].total : 0,
+      monitors,
+    });
+  } catch(error) {
+    logger.error(`An error occurred while searching the monitors: ${error}`);
+    return next(createError(500));
+  }
+});
+
+router.get('/:id', authenticationMiddleware(), async (req: Request, res: Response, next: NextFunction) => {
+  const id = req.params.id;
+
+  try {
+    logger.info(`Searching the monitor by id [${id}]`);
+
+    const monitor = await mysql.execute(`SELECT * FROM monitors WHERE id = '${id}'`);
+
+    logger.debug(`Found [${JSON.stringify(monitor)}] monitor by id [${id}]`);
+
+    return res.status(200).json(monitor && monitor.length > 0 ? monitor[0] : {});
+  } catch(error) {
+    logger.error(`An error occurred while searching the monitor by id [${id}]: ${error}`);
+    return next(createError(500));
+  }
+});
+
+router.post('/', authenticationMiddleware(), async (req: Request, res: Response, next: NextFunction) => {
+  const userId = (req as any).userId;
+
+  const body = req.body;
+
+  try {
+    const monitor = new MonitorsModel(body.name);
 
     logger.debug(`Inserting the monitor [${JSON.stringify(monitor)}]`);
 
-    const result = mysql.execute(`INSERT INTO monitors (id, code, user_id) VALUES ('${monitor.id}', '${monitor.code}', '${monitor.userId}')`);
+    const resultMonitor = await mysql.execute(`INSERT INTO monitors (id, code, name) VALUES ('${monitor.id}', '${monitor.code}', '${monitor.name}')`);
 
-    logger.debug(`Monitor [${JSON.stringify(monitor)}] inserted: ${result}`);
+    logger.debug(`Monitor [${JSON.stringify(monitor)}] inserted: ${resultMonitor}`);
+
+    const view = new ViewersModel(monitor.id!, userId);
+
+    logger.debug(`Inserting the view [${JSON.stringify(view)}]`);
+
+    const resultView = await mysql.execute(`INSERT INTO viewers (id, monitor_id, user_id) VALUES ('${view.id}', '${view.monitorId}', '${view.userId}')`);
+
+    logger.debug(`View [${JSON.stringify(view)}] inserted: ${resultView}`);
 
     return res.status(201).json(monitor);
   } catch(error) {
-    logger.error(`An error occurred while inserting the monitor: ${error}`);
+    logger.error(`An error occurred while inserting the monitor or the view: ${error}`);
+    return next(createError(500));
+  }
+});
+
+router.put('/:id', authenticationMiddleware(), async (req: Request, res: Response, next: NextFunction) => {
+  const id = req.params.id;
+
+  try {
+    logger.debug(`Updating the monitor by id [${id}]`);
+
+    const result = await mysql.execute(`UPDATE monitors SET name = '${req.body.name}' WHERE id = '${id}')`);
+
+    logger.debug(`Monitor updated by id [${id}]`);
+
+    return res.status(200).json();
+  } catch(error) {
+    logger.error(`An error occurred while updating the monitor by id [${id}]: ${error}`);
+    return next(createError(500));
+  }
+});
+
+router.delete('/:id', authenticationMiddleware(), async (req: Request, res: Response, next: NextFunction) => {
+  const id = req.params.id;
+
+  try {
+    logger.debug(`Deleting the monitor by id [${id}]`);
+
+    const resultMonitors = await mysql.execute(`DELETE FROM monitors WHERE id = '${id}'`);
+    const resultViewers = await mysql.execute(`DELETE FROM viewers WHERE monitor_id = '${id}'`);
+
+    logger.debug(`Monitor deleted by id [${id}]`);
+
+    return res.status(200).json();
+  } catch(error) {
+    logger.error(`An error occurred while deleting the monitor by id [${id}]: ${error}`);
     return next(createError(500));
   }
 });
