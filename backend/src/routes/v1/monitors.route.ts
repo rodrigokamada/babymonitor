@@ -63,17 +63,17 @@ router.post('/', authenticationMiddleware(), async (req: Request, res: Response,
 
     logger.debug(`Monitor [${JSON.stringify(monitor)}] inserted: ${resultMonitor}`);
 
-    const view = new ViewersModel(monitor.id!, userId, undefined, undefined);
+    const viewer = new ViewersModel(monitor.id!, userId, undefined, undefined);
 
-    logger.debug(`Inserting the view [${JSON.stringify(view)}]`);
+    logger.debug(`Inserting the viewer [${JSON.stringify(viewer)}]`);
 
-    const resultView = await mysql.execute(`INSERT INTO viewers (id, monitor_id, user_id) VALUES ('${view.id}', '${view.monitorId}', '${view.userId}')`);
+    const resultViewer = await mysql.execute(`INSERT INTO viewers (id, monitor_id, user_id) VALUES ('${viewer.id}', '${viewer.monitorId}', '${viewer.userId}')`);
 
-    logger.debug(`View [${JSON.stringify(view)}] inserted: ${resultView}`);
+    logger.debug(`Viewer [${JSON.stringify(viewer)}] inserted: ${resultViewer}`);
 
     return res.status(201).json(monitor);
   } catch (error) {
-    logger.error(`An error occurred while inserting the monitor or the view: ${error}`);
+    logger.error(`An error occurred while inserting the monitor or the viewer: ${error}`);
     return next(createError(500));
   }
 });
