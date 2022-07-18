@@ -2,8 +2,6 @@ import { AfterViewInit, Component } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
-import { TranslocoService } from '@ngneat/transloco';
 import { Peer } from 'peerjs';
 import { Socket } from 'ngx-socket-io';
 
@@ -14,20 +12,24 @@ import { environment } from '../../environments/environment';
 import { StorageService } from '../shared/services/storage.service';
 import { ViewersService } from './viewers.service';
 
+// Componenets
+import { ViewersFormComponent } from './viewers-form.component';
+
 // Models
-import { ViewersModel } from './viewers.model';
+import { MonitorsModel } from '../monitors/monitors.model';
 
 @Component({
   selector: 'app-viewers-list',
-  templateUrl: './viewers.component.html',
-  styleUrls: ['./viewers.component.scss'],
+  templateUrl: './viewers-list.component.html',
+  styleUrls: ['./viewers-list.component.scss'],
 })
-export class ViewersComponent implements AfterViewInit {
+export class ViewersListComponent implements AfterViewInit {
 
   peer: any;
   user: any;
   videos: any;
   streamLocal: any;
+  monitor: MonitorsModel;
 
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
@@ -35,28 +37,30 @@ export class ViewersComponent implements AfterViewInit {
               private socket: Socket,
               private spinnerService: NgxSpinnerService,
               private storageService: StorageService,
-              private toastrService: ToastrService,
-              private translocoService: TranslocoService,
               private viewersService: ViewersService) {
     this.peer = undefined;
     this.user = undefined;
     this.videos = undefined;
     this.streamLocal = undefined;
+    this.monitor = new MonitorsModel();
   }
 
   ngAfterViewInit(): void {
     this.user = this.storageService.getUser();
 
-    this.peer = new Peer(this.user.id, environment.peer as any);
-    //this.peer = new Peer(undefined as any, environment.peer as any);
+    this.peer = new Peer(this.monitor.id!, environment.peer as any);
 
     this.activatedRoute.queryParams.subscribe((params: Params) => {
-      this.loadById(params['id']);
+      this.monitor.id = params['id'];
+      this.monitor.code = params['code'];
+      this.monitor.name = params['name'];
+
+      this.load();
     });
   }
 
-  private loadById(monitorId?: string): void {
-    if (!monitorId) {
+  private load(): void {
+    if (!this.monitor.id) {
       this.back();
     }
 
@@ -69,12 +73,10 @@ export class ViewersComponent implements AfterViewInit {
       audio: true,
       video: true,
     }).then((streamLocal: any) => {
-      console.log('getUserMedia', streamLocal);
       this.streamLocal = streamLocal;
       this.addStreamToVideo(streamLocal, videoLocal);
 
       this.peer.on('call', (call: any) => {
-        console.log('call', call);
         call.answer(streamLocal);
 
         const videoRemote = document.createElement('video');
@@ -85,15 +87,12 @@ export class ViewersComponent implements AfterViewInit {
       });
 
       this.socket.on('VIEW_CONNECT', (userId: string) => {
-        console.log('VIEW_CONNECT:', userId);
         this.connectToUser(userId, streamLocal);
       });
     });
 
-    this.peer.on('open', (id: any) => {
-      console.log('open:', id);
-      this.socket.emit('VIEW_OPEN', monitorId, id);
-      //this.socket.emit('join-room', monitorId, id, user);
+    this.peer.on('open', (peerId: any) => {
+      this.socket.emit('VIEW_OPEN', this.monitor.id, this.user.id, peerId);
     });
 
     this.spinnerService.hide();
@@ -111,8 +110,14 @@ export class ViewersComponent implements AfterViewInit {
     const call = this.peer.call(userId, stream);
     const video = document.createElement('video');
     call.on('stream', (streamRemote: any) => {
+      console.log('stream');
       this.addStreamToVideo(video, streamRemote);
     });
+  }
+
+  public invite(): void {
+    const modal = this.modalService.open(ViewersFormComponent, { backdrop: 'static', centered: true });
+    modal.componentInstance.monitor = this.monitor;
   }
 
   public back(): void {
