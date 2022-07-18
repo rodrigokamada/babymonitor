@@ -86,7 +86,9 @@ export class CognitoService {
     return new Observable((observer: Subscriber<any>) => {
       Auth.currentUserInfo()
       .then((result: any) => {
-        observer.next(result);
+        if (result && result.attributes) {
+          observer.next(result.attributes);
+        }
         observer.complete();
       }).catch((error: any) => {
         observer.error(error);
