@@ -21,7 +21,7 @@ router.get('/', authenticationMiddleware(), async (req: Request, res: Response, 
     const total = await mysql.execute(`SELECT COUNT(*) AS total FROM monitors M INNER JOIN viewers V ON V.monitor_id = M.id WHERE V.user_id = '${userId}'`);
     logger.debug('total:', total);
 
-    const monitors = await mysql.execute(`SELECT M.*, M.user_id = V.user_id FROM monitors M INNER JOIN viewers V ON V.monitor_id = M.id WHERE V.user_id = '${userId}' LIMIT ${offset}, ${size}`);
+    const monitors = await mysql.execute(`SELECT M.* FROM monitors M INNER JOIN viewers V ON V.monitor_id = M.id WHERE V.user_id = '${userId}' LIMIT ${offset}, ${size}`);
     logger.debug('monitors:', monitors);
 
     return res.status(200).json({
