@@ -24,7 +24,6 @@ jobs:
     - name: Sync to Heroku
       if: success()
       uses: akhileshns/heroku-deploy@v3.12.12
-      working-directory: ./backend
       with:
         heroku_api_key: ${{secrets.HEROKU_API_KEY}}
         heroku_app_name: "baby-monitor-server"
