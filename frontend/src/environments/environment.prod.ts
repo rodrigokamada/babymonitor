@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  server: 'https://baby-monitor-web.herokuapp.com',
+  server: 'https://baby-monitor-server.herokuapp.com',
   google: {
     recaptcha: {
       siteKey: '6LdTluEgAAAAANTwd7OMss-mMaLhNYpmuFs8w99U',
@@ -12,7 +12,7 @@ export const environment = {
   },
   peer: {
     debug: 0,
-    host: 'baby-monitor-web.herokuapp.com',
+    host: 'baby-monitor-server.herokuapp.com',
     port: 443,
     path: '/',
     secure: true,
