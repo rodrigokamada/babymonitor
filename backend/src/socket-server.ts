@@ -25,9 +25,8 @@ export class SocketServer {
         logger.info(`Socket id [${socket.id}] disconnected`);
       });
 
-      socket.on('VIEW_OPEN', async (monitorId: string, userId: string) => {
-        logger.debug(`MonitorId [${monitorId}] opened by userId [${userId}]`);
-        socket.join(monitorId);
+      socket.on('VIEW_OPEN', async (monitorId: string, userId: string, peerId: string) => {
+        logger.debug(`View opened to monitorId [${monitorId}], userId [${userId}] and peerId [${peerId}]`);
         socket.to(monitorId).emit('VIEW_CONNECT', userId);
       });
     });
