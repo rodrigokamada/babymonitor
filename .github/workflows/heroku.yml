@@ -26,7 +26,11 @@ jobs:
       working-directory: ./backend
       run: npm run build
 
-    - run: git add -A && git commit -m "Updated code"
+    - name: GitHub
+      run: |
+      git config user.email "rodrigo@kamada.com.br"
+      git config user.name "Rodrigo Kamada"
+      git add -A && git commit -m "Updated code"
 
     - name: Sync to Heroku
       if: success()
