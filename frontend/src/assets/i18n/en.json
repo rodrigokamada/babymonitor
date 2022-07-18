@@ -22,6 +22,7 @@
   },
 
   "button": {
+    "add": "Add",
     "back": "Back",
     "close": "Close",
     "confirm": "Confirm",
@@ -66,8 +67,11 @@
     "password": "Password",
     "sendMessage": "Send us a message using the form below.",
     "signIn": "Sign In",
+    "signInInvalid": "Invalid email or password.",
+    "signInNotConfirm": "Email not confirmed. Check your email.",
     "signInSuccess": "Welcome and have fun!",
     "signUp": "Sign Up",
+    "signUpExpired": "Expired code. Check the new code in your email.",
     "signUpInvalidPassword": "The password must be at least 8 characters length, contain at least 1 number, 1 special character, 1 uppercase letter and 1 lowercase letter.",
     "signUpSuccess": "The sign up was successfully done! Confirm your sign up with the code received by email.",
     "subject": "Subject",
@@ -82,7 +86,9 @@
   },
 
   "monitors": {
+    "addSuccess": "Monitor with the code <b>{{code}}</b> was successfully added!",
     "code": "Code",
+    "codePlaceholder": "123abc",
     "create1": "Click here",
     "create2": "to create a monitor and share with other users.",
     "deleteConfirmation": "Do you really want to delete the monitor <b>{{code}}</b>?",
