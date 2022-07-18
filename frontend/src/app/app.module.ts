@@ -21,6 +21,9 @@ import { HttpHeaderInterceptor } from './shared/interceptors/http-header.interce
 // Modules
 import { TranslocoRootModule } from './shared/modules/transloco-root.module';
 import { AppRoutingModule } from './app-routing.module';
+import { MonitorsModule } from './monitors/monitors.module';
+import { UsersModule } from './users/users.module';
+import { ViewersModule } from './viewers/viewers.module';
 
 // Components
 import { AppComponent } from './app.component';
@@ -50,6 +53,9 @@ import { AppComponent } from './app.component';
     // Modules
     TranslocoRootModule,
     AppRoutingModule,
+    MonitorsModule,
+    UsersModule,
+    ViewersModule,
   ],
   providers: [
     {
