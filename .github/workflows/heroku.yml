@@ -26,6 +26,8 @@ jobs:
       working-directory: ./backend
       run: npm run build
 
+    - run: git add -A && git commit -m "Updated code"
+
     - name: Sync to Heroku
       if: success()
       uses: akhileshns/heroku-deploy@v3.12.12
@@ -33,7 +35,7 @@ jobs:
         heroku_api_key: ${{secrets.HEROKU_API_KEY}}
         heroku_app_name: "baby-monitor-server"
         heroku_email: ${{secrets.HEROKU_EMAIL}}
-        appdir: ./backend/dist
+        appdir: ./backend
         branch: "main"
         dontuseforce: true
 
