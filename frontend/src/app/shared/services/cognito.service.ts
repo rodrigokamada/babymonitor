@@ -46,6 +46,18 @@ export class CognitoService {
     });
   }
 
+  public resendSignUp(email: string): Observable<any> {
+    return new Observable((observer: Subscriber<any>) => {
+      Auth.resendSignUp(email)
+      .then((result: any) => {
+        observer.next(result);
+        observer.complete();
+      }).catch((error: any) => {
+        observer.error(error);
+      });
+    });
+  }
+
   public signIn(user: UsersModel): Observable<any> {
     return new Observable((observer: Subscriber<any>) => {
       Auth.signIn(user.email as string, user.password as string)
