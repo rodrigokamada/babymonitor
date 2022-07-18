@@ -5,15 +5,15 @@ export class ViewersModel {
   id: String|undefined;
   monitorId: String|undefined;
   userId: String|undefined;
-  peerId: String|undefined;
   socketId: String|undefined;
+  peerId: String|undefined;
 
-  constructor(monitorId: String, userId: String, peerId: String|undefined, socketId: String|undefined) {
+  constructor(monitorId: String, userId: String, socketId: String|undefined, peerId: String|undefined) {
     this.id = uuidv4();
     this.monitorId = monitorId;
     this.userId = userId;
-    this.peerId = peerId;
     this.socketId = socketId;
+    this.peerId = peerId;
   }
 
 }
