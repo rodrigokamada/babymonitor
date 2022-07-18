@@ -21,7 +21,10 @@
       {
         "ts": "never"
       }
-    ]
+    ],
+    "lines-between-class-members": "off",
+    "no-plusplus": "off",
+    "object-curly-newline": "off"
   },
   "settings": {
     "import/resolver": {
