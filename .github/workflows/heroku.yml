@@ -13,7 +13,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    - name: Sync to Heroku
+    - name: Sync backend to Heroku
       if: success()
       uses: akhileshns/heroku-deploy@v3.12.12
       with:
@@ -21,6 +21,17 @@ jobs:
         heroku_app_name: "baby-monitor-server"
         heroku_email: ${{secrets.HEROKU_EMAIL}}
         appdir: ./backend
+        branch: "main"
+        dontuseforce: false
+
+    - name: Sync frontend to Heroku
+      if: success()
+      uses: akhileshns/heroku-deploy@v3.12.12
+      with:
+        heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+        heroku_app_name: "baby-monitor-web"
+        heroku_email: ${{secrets.HEROKU_EMAIL}}
+        appdir: ./frontend
         branch: "main"
         dontuseforce: false
 
