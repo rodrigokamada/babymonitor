@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-sm-6">
+    <h1>{{ "users.myAccount" | transloco }}</h1>
+  </div>
+  <div class="col-sm-6 text-end">
+  </div>
+</div>
+
+<div class="mw-860 mx-auto">
+  <form #form="ngForm">
+    <div class="row">
+      <div class="col-sm-6 mb-2">
+        <label for="name" class="form-label">{{ "users.name" | transloco }}:</label>
+        <input type="text" id="name" name="name" #name="ngModel" [(ngModel)]="user.name" placeholder="{{ 'users.namePlaceholder' | transloco }}" required minlength="1" maxlength="250" class="form-control form-control-sm" [class.is-invalid]="name.invalid && (name.dirty || name.touched)">
+        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="invalid-feedback">
+          <div *ngIf="name.errors?.['required']">
+            {{ "error.required" | transloco }}
+          </div>
+          <div *ngIf="name.errors?.['minlength']">
+            {{ "error.minlength1" | transloco }}
+          </div>
+          <div *ngIf="name.errors?.['maxlength']">
+            {{ "error.maxlength" | transloco: { length: 250 } }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center">
+      <button type="button" class="btn btn-sm btn-primary mb-1" (click)="save(form)">{{ "button.save" | transloco }}</button>
+    </div>
+  </form>
+</div>

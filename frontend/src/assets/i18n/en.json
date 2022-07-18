@@ -93,7 +93,8 @@
   "users": {
     "name": "Name",
     "namePlaceholder": "Your name",
-    "myAccount": "My account"
+    "myAccount": "My account",
+    "saveSuccess": "The user was successfully saved!"
   },
 
   "viewers": {
