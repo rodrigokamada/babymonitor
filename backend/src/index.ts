@@ -28,7 +28,7 @@ function normalizePort(val: string) {
   return false;
 }
 
-const port = normalizePort(process.env.PORT || applicationConfig.port);
+const port = normalizePort(applicationConfig.port);
 app.set('port', port);
 
 function onError(error: any) {
