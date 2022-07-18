@@ -15,7 +15,7 @@ export const environment = {
     userPoolWebClientId: '2c5mv2jgmje9qnm4lk53oak50a',
   },
   peer: {
-    debug: true,
+    debug: 3,
     host: 'localhost',
     port: 3000,
     path: '/',
