@@ -12,23 +12,23 @@ export class MySQL {
 
   public connect(): Connection {
     return createConnection(mysqlConfig.url);
-  };
+  }
 
   public disconnect(): void {
     if (this.connection) {
         this.connection.end;
     }
-  };
+  }
 
   public getConnection(): Connection {
     if (this.connection) {
-        return this.connection;
+      return this.connection;
     }
 
     this.connection = this.connect();
 
     return this.connection;
-  };
+  }
 
   public execute(sql: string): any {
     return new Promise((resolve, reject) => {
