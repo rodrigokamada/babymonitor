@@ -91,6 +91,8 @@
   },
 
   "viewers": {
+    "code": "Code",
+    "inviteView": "Invite a viewer",
     "viewers": "Viewers"
   }
 
