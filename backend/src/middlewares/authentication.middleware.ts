@@ -16,7 +16,7 @@ const authenticationMiddleware = (): RequestHandler => async (req: Request, res:
   logger.debug(`Parameter [authorization] found in the header with the value [${req.headers.authorization}]`);
 
   try {
-    let authorization = req.headers.authorization;
+    let { authorization } = req.headers;
     if (authorization && authorization.toLowerCase().includes('bearer')) {
       authorization = authorization.split(' ')[1];
     }
@@ -30,7 +30,7 @@ const authenticationMiddleware = (): RequestHandler => async (req: Request, res:
     if (payload) {
       logger.debug(`Adding the userId [${payload.sub}] to the request`);
 
-      (req as any).userId = payload.sub
+      (req as any).userId = payload.sub;
 
       return next();
     }
