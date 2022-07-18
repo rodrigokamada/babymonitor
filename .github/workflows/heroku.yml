@@ -20,6 +20,7 @@ jobs:
         heroku_api_key: ${{secrets.HEROKU_API_KEY}}
         heroku_app_name: "baby-monitor-server"
         heroku_email: ${{secrets.HEROKU_EMAIL}}
+        appdir: ./backend
         branch: "main"
         dontuseforce: false
 
