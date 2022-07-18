@@ -69,8 +69,7 @@ peerServer.on('connection', (client: any) => {
 peerServer.on('disconnect', (client: any) => {
   logger.debug('disconnected:', client);
 });
-app.use('/peerjs', peerServer);
-
+app.use(peerServer);
 
 function onListening() {
   const addr: any = server.address();
