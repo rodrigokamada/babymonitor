@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -7,6 +8,7 @@ import { TranslocoService } from '@ngneat/transloco';
 
 // Services
 import { MonitorsService } from './monitors.service';
+import { ViewersService } from '../viewers/viewers.service';
 
 // Models
 import { MonitorsModel } from './monitors.model';
@@ -30,7 +32,8 @@ export class MonitorsListComponent implements OnInit {
               private spinnerService: NgxSpinnerService,
               private toastrService: ToastrService,
               private translocoService: TranslocoService,
-              private monitorsService: MonitorsService) {
+              private monitorsService: MonitorsService,
+              private viewersService: ViewersService) {
     this.page = 1;
     this.total = 0;
     this.monitorsList = [];
@@ -85,6 +88,40 @@ export class MonitorsListComponent implements OnInit {
     this.router.navigate(['/monitors/form'], { queryParams: { id }, skipLocationChange: true });
   }
 
+  public openAdd(modal: any): void {
+    this.monitor = new MonitorsModel();
+    this.modal = this.modalService.open(modal, { backdrop: 'static', centered: true, size: 'sm' });
+  }
+
+  public add(form: NgForm): void {
+    this.spinnerService.show();
+
+    if (form.invalid) {
+      for (const control in form.controls) {
+        form.controls[control].markAsTouched();
+      }
+      this.spinnerService.hide();
+      this.translocoService.selectTranslate('error.validation')
+      .subscribe((message: string) => this.toastrService.error(message));
+      return;
+    }
+
+    this.viewersService.insertByMonitorCode(this.monitor?.code!)
+    .subscribe({
+      next: () => {
+        this.modal.close('');
+        this.spinnerService.hide();
+        this.translocoService.selectTranslate('monitors.addSuccess', { code: this.monitor?.code })
+        .subscribe((message: string) => this.toastrService.success(message));
+        this.load(true);
+      }, error: (error: any) => {
+        this.spinnerService.hide();
+        this.translocoService.selectTranslate('error.problem')
+        .subscribe((message: string) => this.toastrService.error(message));
+      },
+    });
+  }
+
   public openDelete(modal: any, monitor: MonitorsModel): void {
     this.monitor = monitor;
     this.modal = this.modalService.open(modal, { backdrop: 'static', centered: true, size: 'sm' });
@@ -93,7 +130,7 @@ export class MonitorsListComponent implements OnInit {
   public delete(): void {
     this.spinnerService.show();
 
-    this.monitorsService.delete(this.monitor?.id as string)
+    this.monitorsService.delete(this.monitor?.id!)
     .subscribe({
       next: () => {
         this.modal.close('');
