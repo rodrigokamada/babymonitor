@@ -12,7 +12,7 @@ const googleConfig: any = config.get('google');
 const router = Router();
 
 router.post('/send', async (req: Request, res: Response, next: NextFunction) => {
-  const body = req.body;
+  const { body } = req;
   logger.info(`Sending the contact [${JSON.stringify(body)}]`);
 
   try {
@@ -29,7 +29,7 @@ router.post('/send', async (req: Request, res: Response, next: NextFunction) => 
     if (!response.success) {
       return next(createError(500));
     }
-  } catch(error) {
+  } catch (error) {
     logger.error(`An error occurred while validating the Google token: ${error}`);
     return next(createError(500));
   }
@@ -44,7 +44,7 @@ router.post('/send', async (req: Request, res: Response, next: NextFunction) => 
     logger.debug(`Contact [${JSON.stringify(contact)}] inserted: ${result}`);
 
     return res.status(201).json(contact);
-  } catch(error) {
+  } catch (error) {
     logger.error(`An error occurred while inserting the contact: ${error}`);
     return next(createError(500));
   }
