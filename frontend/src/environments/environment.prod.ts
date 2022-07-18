@@ -10,4 +10,14 @@ export const environment = {
     userPoolId: 'us-east-1_pvBUG59Lc',
     userPoolWebClientId: '2c5mv2jgmje9qnm4lk53oak50a',
   },
+  peer: {
+    debug: true,
+    host: 'baby-monitor-web.herokuapp.com',
+    port: 443,
+    path: '/',
+    secure: true,
+  },
+  socket: {
+    path: '/socket.io',
+  },
 };

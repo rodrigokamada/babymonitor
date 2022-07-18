@@ -14,6 +14,16 @@ export const environment = {
     userPoolId: 'us-east-1_pvBUG59Lc',
     userPoolWebClientId: '2c5mv2jgmje9qnm4lk53oak50a',
   },
+  peer: {
+    debug: true,
+    host: 'localhost',
+    port: 3000,
+    path: '/',
+    secure: false,
+  },
+  socket: {
+    path: '/socket.io',
+  },
 };
 
 /*
