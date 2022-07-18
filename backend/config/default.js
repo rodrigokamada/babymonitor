@@ -1,35 +1,38 @@
-{
+module.exports = {
 
-  "application": {
-    "port": 3000
+  application: {
+    port: process.env.PORT,
   },
 
-  "cors": {
+  cors: {
   },
 
-  "logger": {
-    "level": "silly"
+  logger: {
+    level: 'silly',
   },
 
-  "socket": {
-    "path": "/socket"
+  socket: {
+    path: '/socket.io',
+    cors: {
+      origin: '*',
+    },
   },
 
-  "mysql": {
-    "url": "mysql://USERNAME:PASSWORD@HOST/DATABASE?ssl={\"rejectUnauthorized\":true}"
+  mysql: {
+    url: process.env.MYSQL_URL
   },
 
-  "google": {
-    "recaptcha": {
-      "url": "https://www.google.com/recaptcha/api/siteverify",
-      "secretKey": "GOOGLE_RECAPTCHA_SECRET_KEY"
-    }
+  google: {
+    recaptcha: {
+      url: 'https://www.google.com/recaptcha/api/siteverify',
+      secretKey: process.env.GOOGLE_RECAPTCHA_SECRET_KEY,
+    },
   },
 
-  "cognito": {
-    "userPoolId": "COGNITO_USER_POOL_ID",
-    "clientId": "COGNITO_CLIENT_ID",
-    "tokenUse": "COGNITO_TOKEN_USE"
-  }
+  cognito: {
+    userPoolId: process.env.COGNITO_USER_POOL_ID,
+    clientId: process.env.COGNITO_CLIENT_I,
+    tokenUse: 'id',
+  },
 
-}
+};
