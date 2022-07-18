@@ -13,14 +13,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    - name: GitHub
-      working-directory: ./backend
-      run: |
-        git config user.email "rodrigo@kamada.com.br"
-        git config user.name "Rodrigo Kamada"
-        git add -A
-        git commit -m "Code updated."
-
     - name: Sync to Heroku
       if: success()
       uses: akhileshns/heroku-deploy@v3.12.12
