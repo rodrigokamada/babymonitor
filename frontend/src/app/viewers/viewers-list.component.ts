@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Peer } from 'peerjs';
 import { Socket } from 'ngx-socket-io';
+import { v4 as uuidv4 } from 'uuid';
 
 // Environments
 import { environment } from '../../environments/environment';
@@ -48,8 +49,6 @@ export class ViewersListComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.user = this.storageService.getUser();
 
-    this.peer = new Peer(this.monitor.id!, environment.peer as any);
-
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.monitor.id = params['id'];
       this.monitor.code = params['code'];
@@ -63,6 +62,8 @@ export class ViewersListComponent implements AfterViewInit {
     if (!this.monitor.id) {
       this.back();
     }
+
+    this.peer = new Peer(uuidv4(), environment.peer as any);
 
     this.videos = document.getElementById('videos');
 
@@ -86,8 +87,8 @@ export class ViewersListComponent implements AfterViewInit {
         });
       });
 
-      this.socket.on('VIEW_CONNECT', (userId: string) => {
-        this.connectToUser(userId, streamLocal);
+      this.socket.on('VIEW_CONNECT', (monitorId: string, peerId: string) => {
+        this.connectToPeer(peerId, streamLocal);
       });
     });
 
@@ -106,11 +107,10 @@ export class ViewersListComponent implements AfterViewInit {
     });
   }
 
-  private connectToUser(userId: string, stream: any): void {
-    const call = this.peer.call(userId, stream);
+  private connectToPeer(peerId: string, stream: any): void {
+    const call = this.peer.call(peerId, stream);
     const video = document.createElement('video');
     call.on('stream', (streamRemote: any) => {
-      console.log('stream');
       this.addStreamToVideo(video, streamRemote);
     });
   }
