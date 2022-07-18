@@ -10,7 +10,7 @@ import { ViewersModel } from '../../models/viewers.model';
 const router = Router();
 
 router.get('/', authenticationMiddleware(), async (req: Request, res: Response, next: NextFunction) => {
-  const userId = (req as any).userId;
+  const { userId } = (req as any);
 
   const size = 50;
   const offset = (((req.query.page || 1) as number) - 1) * size;
@@ -26,14 +26,14 @@ router.get('/', authenticationMiddleware(), async (req: Request, res: Response, 
       total: total && total.length > 0 ? total[0].total : 0,
       monitors,
     });
-  } catch(error) {
+  } catch (error) {
     logger.error(`An error occurred while searching the monitors: ${error}`);
     return next(createError(500));
   }
 });
 
 router.get('/:id', authenticationMiddleware(), async (req: Request, res: Response, next: NextFunction) => {
-  const id = req.params.id;
+  const { id } = req.params;
 
   try {
     logger.info(`Searching the monitor by id [${id}]`);
@@ -43,16 +43,16 @@ router.get('/:id', authenticationMiddleware(), async (req: Request, res: Respons
     logger.debug(`Found [${JSON.stringify(monitor)}] monitor by id [${id}]`);
 
     return res.status(200).json(monitor && monitor.length > 0 ? monitor[0] : {});
-  } catch(error) {
+  } catch (error) {
     logger.error(`An error occurred while searching the monitor by id [${id}]: ${error}`);
     return next(createError(500));
   }
 });
 
 router.post('/', authenticationMiddleware(), async (req: Request, res: Response, next: NextFunction) => {
-  const userId = (req as any).userId;
+  const { userId } = (req as any);
 
-  const body = req.body;
+  const { body } = req;
 
   try {
     const monitor = new MonitorsModel(body.name);
@@ -63,7 +63,7 @@ router.post('/', authenticationMiddleware(), async (req: Request, res: Response,
 
     logger.debug(`Monitor [${JSON.stringify(monitor)}] inserted: ${resultMonitor}`);
 
-    const view = new ViewersModel(monitor.id!, userId);
+    const view = new ViewersModel(monitor.id!, userId, undefined, undefined);
 
     logger.debug(`Inserting the view [${JSON.stringify(view)}]`);
 
@@ -72,14 +72,14 @@ router.post('/', authenticationMiddleware(), async (req: Request, res: Response,
     logger.debug(`View [${JSON.stringify(view)}] inserted: ${resultView}`);
 
     return res.status(201).json(monitor);
-  } catch(error) {
+  } catch (error) {
     logger.error(`An error occurred while inserting the monitor or the view: ${error}`);
     return next(createError(500));
   }
 });
 
 router.put('/:id', authenticationMiddleware(), async (req: Request, res: Response, next: NextFunction) => {
-  const id = req.params.id;
+  const { id } = req.params;
 
   try {
     logger.debug(`Updating the monitor by id [${id}]`);
@@ -89,14 +89,14 @@ router.put('/:id', authenticationMiddleware(), async (req: Request, res: Respons
     logger.debug(`Monitor updated by id [${id}]`);
 
     return res.status(200).json();
-  } catch(error) {
+  } catch (error) {
     logger.error(`An error occurred while updating the monitor by id [${id}]: ${error}`);
     return next(createError(500));
   }
 });
 
 router.delete('/:id', authenticationMiddleware(), async (req: Request, res: Response, next: NextFunction) => {
-  const id = req.params.id;
+  const { id } = req.params;
 
   try {
     logger.debug(`Deleting the monitor by id [${id}]`);
@@ -107,7 +107,7 @@ router.delete('/:id', authenticationMiddleware(), async (req: Request, res: Resp
     logger.debug(`Monitor deleted by id [${id}]`);
 
     return res.status(200).json();
-  } catch(error) {
+  } catch (error) {
     logger.error(`An error occurred while deleting the monitor by id [${id}]: ${error}`);
     return next(createError(500));
   }
