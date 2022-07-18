@@ -7,6 +7,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class StorageService {
 
   private LOCALE: string = 'LOCALE';
+  private INVITE_CODE: string = 'INVITE_CODE';
 
   private USER = 'USER';
   private userSubject: BehaviorSubject<any>;
@@ -38,6 +39,23 @@ export class StorageService {
     }
 
     return undefined;
+  }
+
+  public setInviteCode(code: string): void {
+    localStorage.setItem(this.INVITE_CODE, code);
+  }
+
+  public getInviteCode(): string|undefined {
+    const code = localStorage.getItem(this.INVITE_CODE);
+    if (code) {
+      return code;
+    }
+
+    return undefined;
+  }
+
+  public removeInviteCode(): void {
+    localStorage.removeItem(this.INVITE_CODE);
   }
 
   public setUser(user: any): void {

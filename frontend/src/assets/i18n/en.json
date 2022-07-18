@@ -74,6 +74,13 @@
     "subjectPlaceholder": "A subject"
   },
 
+  "invite": {
+    "alreadyViewMonitor": "You can already view the monitor with the code <b>{{code}}</b>!",
+    "codeNotSent": "Monitor code has not been sent!",
+    "nowViewMonitor": "You can now view a monitor with the code <b>{{code}}</b>!",
+    "signInBecome": "Sign in to view a monitor with the code <b>{{code}}</b>!"
+  },
+
   "monitors": {
     "code": "Code",
     "create1": "Click here",
