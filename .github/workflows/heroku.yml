@@ -28,9 +28,10 @@ jobs:
 
     - name: GitHub
       run: |
-      git config user.email "rodrigo@kamada.com.br"
-      git config user.name "Rodrigo Kamada"
-      git add -A && git commit -m "Updated code"
+        git config user.email "rodrigo@kamada.com.br"
+        git config user.name "Rodrigo Kamada"
+        git add -A
+        git commit -m "Code updated."
 
     - name: Sync to Heroku
       if: success()
