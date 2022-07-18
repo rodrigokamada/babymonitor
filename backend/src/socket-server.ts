@@ -3,6 +3,8 @@ import http from 'http';
 import socketio from 'socket.io';
 
 import logger from './utils/logger';
+import viewersController from './controllers/viewers.controller';
+import { ViewersModel } from './models/viewers.model';
 
 const socketConfig: any = config.get('socket');
 
@@ -27,7 +29,20 @@ export class SocketServer {
 
       socket.on('VIEW_OPEN', async (monitorId: string, userId: string, peerId: string) => {
         logger.debug(`View opened to monitorId [${monitorId}], userId [${userId}] and peerId [${peerId}]`);
-        socket.to(monitorId).emit('VIEW_CONNECT', userId);
+
+        const viewer = new ViewersModel(monitorId, userId, socket.id, peerId);
+        await viewersController.update(viewer);
+
+        try {
+          const viewers = await viewersController.getViewersByMonitorId(monitorId);
+          if (viewers && viewers.length > 0) {
+            for (const v of viewers) {
+              socket.to(v.socket_id).emit('VIEW_CONNECT', v.monitor_id, v.peer_id);
+            }
+          }
+        } catch (error) {
+          logger.error(`An error occurred while emitting the viewers connected: ${error}`);
+        }
       });
     });
   }
