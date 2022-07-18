@@ -16,7 +16,13 @@ router.post('/', authenticationMiddleware(), async (req: Request, res: Response,
   try {
     logger.debug(`Searching the monitor by code [${monitor.code}]`);
 
-    monitor = await mysql.execute(`SELECT M.* FROM monitors M WHERE V.code = '${monitor.code}'`);
+    monitor = await mysql.execute(`SELECT M.* FROM monitors M WHERE M.code = '${monitor.code}'`);
+
+    if (monitor && monitor.length > 0) {
+      monitor = monitor[0];
+    }
+
+    logger.debug(`Monitor [${JSON.stringify(monitor)}] found by code [${monitor.code}]`);
 
     const viewer = new ViewersModel(monitor.id, userId, undefined, undefined);
 
@@ -24,7 +30,7 @@ router.post('/', authenticationMiddleware(), async (req: Request, res: Response,
 
     const result = await mysql.execute(`INSERT INTO viewers (id, monitor_id, user_id) VALUES ('${viewer.id}', '${viewer.monitorId}', '${viewer.userId}')`);
 
-    logger.debug(`Viewer [${JSON.stringify(viewer)}] inserted: ${result}`);
+    logger.debug(`Viewer [${JSON.stringify(viewer)}] inserted: ${JSON.stringify(result)}`);
 
     return res.status(201).json(viewer);
   } catch (error) {

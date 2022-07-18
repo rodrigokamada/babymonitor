@@ -74,10 +74,12 @@ export class HomeComponent {
 
         this.router.navigate(['/monitors']);
       }, error: (error: any) => {
-        if (error && error.error && error.error.status === 'NOT_FOUND') {
-          //this.messageService.showErrorKey('home.notFound');
-        } else if (error && error.error && error.error.status === 'INACTIVE') {
-          //this.messageService.showErrorKey('components.authentication.userInactive');
+        if (error && error.code === 'NotAuthorizedException') {
+          this.translocoService.selectTranslate('home.signInInvalid')
+          .subscribe((message: string) => this.toastrService.error(message));
+        } else if (error && error.code === 'UserNotConfirmedException') {
+          this.translocoService.selectTranslate('home.signInNotConfirm')
+          .subscribe((message: string) => this.toastrService.error(message));
         } else {
           this.translocoService.selectTranslate('error.problem')
           .subscribe((message: string) => this.toastrService.error(message));
@@ -152,6 +154,16 @@ export class HomeComponent {
 
         this.isConfirmSignUp = true;
       }, error: (error: any) => {
+        if (error && error.code === 'ExpiredCodeException') {
+          this.translocoService.selectTranslate('home.signUpExpired')
+          .subscribe((message: string) => this.toastrService.error(message));
+
+          this.cognitoService.resendSignUp(this.userConfirmSignUp.email!).subscribe();
+        } else {
+          this.translocoService.selectTranslate('error.problem')
+          .subscribe((message: string) => this.toastrService.error(message));
+        }
+
         this.translocoService.selectTranslate('error.problem')
         .subscribe((message: string) => this.toastrService.error(message));
 

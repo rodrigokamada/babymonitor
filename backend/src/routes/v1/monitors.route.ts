@@ -19,8 +19,10 @@ router.get('/', authenticationMiddleware(), async (req: Request, res: Response, 
     logger.debug(`Searching the monitors by userId [${userId}]`);
 
     const total = await mysql.execute(`SELECT COUNT(*) AS total FROM monitors M INNER JOIN viewers V ON V.monitor_id = M.id WHERE V.user_id = '${userId}'`);
+    logger.debug('total:', total);
 
-    const monitors = await mysql.execute(`SELECT M.* FROM monitors M INNER JOIN viewers V ON V.monitor_id = M.id WHERE V.user_id = '${userId}' LIMIT ${offset}, ${size}`);
+    const monitors = await mysql.execute(`SELECT M.*, M.user_id = V.user_id FROM monitors M INNER JOIN viewers V ON V.monitor_id = M.id WHERE V.user_id = '${userId}' LIMIT ${offset}, ${size}`);
+    logger.debug('monitors:', monitors);
 
     return res.status(200).json({
       total: total && total.length > 0 ? total[0].total : 0,
@@ -101,14 +103,19 @@ router.delete('/:id', authenticationMiddleware(), async (req: Request, res: Resp
   try {
     logger.debug(`Deleting the monitor by id [${id}]`);
 
-    const resultMonitors = await mysql.execute(`DELETE FROM monitors WHERE id = '${id}'`);
-    const resultViewers = await mysql.execute(`DELETE FROM viewers WHERE monitor_id = '${id}'`);
+    const monitor = await mysql.execute(`DELETE FROM monitors WHERE id = '${id}'`);
 
-    logger.debug(`Monitor deleted by id [${id}]`);
+    logger.debug(`Monitor [${monitor}] deleted by id [${id}]`);
+
+    logger.debug(`Deleting the viewers by monitorId [${id}]`);
+
+    const viewers = await mysql.execute(`DELETE FROM viewers WHERE monitor_id = '${id}'`);
+
+    logger.debug(`Viewers [${viewers}] deleted by id [${id}]`);
 
     return res.status(200).json();
   } catch (error) {
-    logger.error(`An error occurred while deleting the monitor by id [${id}]: ${error}`);
+    logger.error(`An error occurred while deleting the monitor and the viewers by id [${id}]: ${error}`);
     return next(createError(500));
   }
 });
