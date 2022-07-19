@@ -64,10 +64,10 @@ const peerServer = ExpressPeerServer(server, {
   debug: true,
 } as any);
 peerServer.on('connection', (client: any) => {
-  logger.debug('connected:', client);
+  logger.info(`Peer id [${client.id}] connected`);
 });
 peerServer.on('disconnect', (client: any) => {
-  logger.debug('disconnected:', client);
+  logger.info(`Peer id [${client.id}] disconnected`);
 });
 app.use(peerServer);
 
