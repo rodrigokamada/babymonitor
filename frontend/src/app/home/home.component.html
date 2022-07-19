@@ -28,7 +28,7 @@
 
 <section id="signIn">
   <div class="card mx-auto" data-aos="fade-up" data-aos-duration="1000">
-    <div class="card-body m-4">
+    <div class="card-body m-4" *ngIf="!isForgotPassword">
       <h3 class="card-title mb-4 text-center">{{ "home.signIn" | transloco }}</h3>
       <form #formSignIn="ngForm">
         <div class="row">
@@ -69,7 +69,7 @@
         </div>
         <div class="row">
           <div class="col-sm-12 mb-2 text-end">
-            <a routerLink="/forgotPassword" class="text-decoration-none">{{ "home.forgotPassword" | transloco }}</a>
+            <a routerLink="" (click)="isForgotPassword = true" class="text-decoration-none">{{ "home.forgotPassword" | transloco }}</a>
           </div>
         </div>
         <div class="row">
@@ -101,6 +101,38 @@
             </a>
           </div>
         </div-->
+      </form>
+    </div>
+    <div class="card-body m-4" *ngIf="isForgotPassword">
+      <h3 class="card-title mb-4 text-center">{{ "home.forgotPassword" | transloco }}</h3>
+      <form #formForgotPassword="ngForm">
+        <div class="row">
+          <div class="col-sm-12 mb-2">
+            <label for="emailForgotPassword" class="form-label">{{ "home.email" | transloco }}:</label>
+            <input type="text" id="emailForgotPassword" name="emailForgotPassword" #emailForgotPassword="ngModel" [(ngModel)]="userForgotPassword.email" placeholder="{{ 'home.emailPlaceholder' | transloco }}" required minlength="1" emailValidator class="form-control form-control-sm" [class.is-invalid]="emailForgotPassword.invalid && (emailForgotPassword.dirty || emailForgotPassword.touched)">
+            <div *ngIf="emailForgotPassword.invalid && (emailForgotPassword.dirty || emailForgotPassword.touched)" class="invalid-feedback">
+              <div *ngIf="emailForgotPassword.errors?.['required']">
+                {{ "error.required" | transloco }}
+              </div>
+              <div *ngIf="emailForgotPassword.errors?.['minlength']">
+                {{ "error.minlength1" | transloco }}
+              </div>
+              <div *ngIf="!emailForgotPassword.errors?.['required'] && emailForgotPassword.errors?.['emailValidator']">
+                {{ "error.emailInvalid" | transloco }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 mb-2 text-end">
+            <a routerLink="" (click)="isForgotPassword = false" class="text-decoration-none">{{ "home.backSignIn" | transloco }}</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 mb-2 d-grid">
+            <button type="button" class="btn btn-sm btn-primary" (click)="forgotPassword(formForgotPassword)">{{ "button.send" | transloco }}</button>
+          </div>
+        </div>
       </form>
     </div>
   </div>
