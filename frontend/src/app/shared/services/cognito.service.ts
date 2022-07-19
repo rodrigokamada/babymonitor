@@ -82,6 +82,18 @@ export class CognitoService {
     });
   }
 
+  public forgotPassword(user: UsersModel): Observable<any> {
+    return new Observable((observer: Subscriber<any>) => {
+      Auth.forgotPassword(user.email as string)
+      .then((result: any) => {
+        observer.next(result);
+        observer.complete();
+      }).catch((error: any) => {
+        observer.error(error);
+      });
+    });
+  }
+
   public getSession(): Observable<any> {
     return new Observable((observer: Subscriber<any>) => {
       Auth.currentSession()
