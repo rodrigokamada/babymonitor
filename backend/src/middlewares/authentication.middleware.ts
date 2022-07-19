@@ -38,6 +38,7 @@ const authenticationMiddleware = (): RequestHandler => async (req: Request, res:
     logger.debug(`Key [${payload.sub}] not found in Redis`);
     return next(createError(401));
   } catch (error: any) {
+    logger.error(`An error occurred while validation the authentication: ${error}`);
     if (error.constructor.name === 'JwtExpiredError') {
       return next(createError(401));
     }
