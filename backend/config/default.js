@@ -19,7 +19,7 @@ module.exports = {
   },
 
   mysql: {
-    url: process.env.MYSQL_URL
+    url: process.env.MYSQL_URL,
   },
 
   google: {
@@ -31,7 +31,7 @@ module.exports = {
 
   cognito: {
     userPoolId: process.env.COGNITO_USER_POOL_ID,
-    clientId: process.env.COGNITO_CLIENT_I,
+    clientId: process.env.COGNITO_CLIENT_ID,
     tokenUse: 'id',
   },
 
