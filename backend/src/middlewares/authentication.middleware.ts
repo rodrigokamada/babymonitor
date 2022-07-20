@@ -18,7 +18,7 @@ const authenticationMiddleware = (): RequestHandler => async (req: Request, res:
   try {
     let { authorization } = req.headers;
     if (authorization && authorization.toLowerCase().includes('bearer')) {
-      authorization = authorization.split(' ')[1];
+      authorization = authorization.split(' ')[1]; // eslint-disable-line prefer-destructuring
     }
 
     logger.debug(`JWT [${authorization}] from authorization`);

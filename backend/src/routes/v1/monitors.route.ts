@@ -88,7 +88,7 @@ router.put('/:id', authenticationMiddleware(), async (req: Request, res: Respons
 
     const result = await mysql.execute(`UPDATE monitors SET name = '${req.body.name}' WHERE id = '${id}')`);
 
-    logger.debug(`Monitor updated by id [${id}]`);
+    logger.debug(`Monitor updated by id [${id}]: ${result}`);
 
     return res.status(200).json();
   } catch (error) {

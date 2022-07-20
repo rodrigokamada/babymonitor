@@ -16,7 +16,7 @@ export class MySQL {
 
   public disconnect(): void {
     if (this.connection) {
-        this.connection.end;
+      this.connection.end();
     }
   }
 
@@ -32,6 +32,7 @@ export class MySQL {
 
   public execute(sql: string): any {
     return new Promise((resolve, reject) => {
+      // eslint-disable-next-line no-unused-vars
       this.getConnection().query(sql, (error: any, result: any, fields: any) => {
         if (error) {
           reject(error);

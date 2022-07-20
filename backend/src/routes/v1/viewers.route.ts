@@ -19,7 +19,7 @@ router.post('/', authenticationMiddleware(), async (req: Request, res: Response,
     monitor = await mysql.execute(`SELECT M.* FROM monitors M WHERE M.code = '${monitor.code}'`);
 
     if (monitor && monitor.length > 0) {
-      monitor = monitor[0];
+      monitor = monitor[0]; // eslint-disable-line prefer-destructuring
     }
 
     logger.debug(`Monitor [${JSON.stringify(monitor)}] found by code [${monitor.code}]`);
