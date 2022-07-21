@@ -46,6 +46,7 @@
   },
 
   "home": {
+    "backSignIn": "Back to sign in", 
     "backSignUp": "Back to sign up", 
     "code": "Code",
     "codePlaceholder": "123456",
@@ -61,10 +62,13 @@
     "features1": "Connection to one or more devices.",
     "features2": "Easy to use.",
     "features3": "Free.",
+    "forgotPassword": "Forgot Password",
+    "forgotPasswordSuccess": "Check the password reset instructions sent in your email!",
     "message": "Message",
     "messagePlaceholder": "Your message.",
     "messageSent": "Message sent successfully. Wait for our contact.",
     "password": "Password",
+    "passwordResetInstructions": "Receive the email with password reset instructions.",
     "sendMessage": "Send us a message using the form below.",
     "signIn": "Sign In",
     "signInInvalid": "Invalid email or password.",
