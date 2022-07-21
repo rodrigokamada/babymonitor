@@ -5,11 +5,11 @@
     <h1>Baby Monitor</h1>
   </a>
 
-  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation" (click)="toggle = !toggle">
+  <button class="navbar-toggler" type="button" (click)="toggle = !toggle">
     <div class="navbar-toggler-icon-animate" [ngClass]="{'open': toggle}"><span></span><span></span><span></span></div>
   </button>
 
-  <div id="navbarContent" class="collapse navbar-collapse flex-row-reverse">
+  <div [ngbCollapse]="!toggle" class="collapse navbar-collapse flex-row-reverse">
     <!-- Not authenticated -->
     <ul class="navbar-nav" *ngIf="!user">
       <li class="nav-item align-self-center" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" (click)="toggle = false">

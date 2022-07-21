@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ViewportScroller } from '@angular/common';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -15,7 +15,7 @@ import { StorageService } from './shared/services/storage.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements AfterViewInit, OnInit {
 
   user: any;
   languagesList: any[];
@@ -42,6 +42,21 @@ export class AppComponent implements OnInit {
         this.storageService.setLocale(this.user.locale);
       }
     });
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      window.onscroll = () => {
+        const navbar = document.getElementsByClassName('navbar');
+        if (navbar && navbar[0]) {
+          if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+            navbar[0].classList.add('navbar-scroll-down');
+          } else {
+            navbar[0].classList.remove('navbar-scroll-down');
+          }
+        }
+      };
+    }, 1000);
   }
 
   public clickBrand(): void {
