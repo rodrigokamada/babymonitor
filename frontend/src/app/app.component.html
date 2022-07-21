@@ -5,7 +5,7 @@
     <h1>Baby Monitor</h1>
   </a>
 
-  <button class="navbar-toggler" type="button" (click)="toggle = !toggle">
+  <button class="navbar-toggler border-0" type="button" (click)="toggle = !toggle">
     <div class="navbar-toggler-icon-animate" [ngClass]="{'open': toggle}"><span></span><span></span><span></span></div>
   </button>
 
@@ -36,17 +36,6 @@
           {{ "menu.contact" | transloco | uppercase }}
         </a>
       </li>
-      <!--li ngbDropdown class="nav-item align-self-center text-center">
-        <a id="menuLanguage" ngbDropdownToggle class="nav-link d-inline-block text-center">
-          <i class="fas fa-globe pe-1"></i>
-          {{ "menu.language" | transloco | uppercase }}
-        </a>
-        <div ngbDropdownMenu class="dropdown-menu dropdown-menu-end" aria-labelledby="menuLanguage">
-          <a class="dropdown-item" (click)="changeLanguage(item.locale)" *ngFor="let item of languagesList" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
-            {{ item.name | uppercase }}
-          </a>
-        </div>
-      </li-->
     </ul>
 
     <!-- Authenticated -->
