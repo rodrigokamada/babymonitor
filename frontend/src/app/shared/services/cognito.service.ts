@@ -84,7 +84,19 @@ export class CognitoService {
 
   public forgotPassword(user: UsersModel): Observable<any> {
     return new Observable((observer: Subscriber<any>) => {
-      Auth.forgotPassword(user.email as string)
+      Auth.forgotPassword(user.email!)
+      .then((result: any) => {
+        observer.next(result);
+        observer.complete();
+      }).catch((error: any) => {
+        observer.error(error);
+      });
+    });
+  }
+
+  public changePassword(user: UsersModel): Observable<any> {
+    return new Observable((observer: Subscriber<any>) => {
+      Auth.forgotPasswordSubmit(user.email!, user.code!, user.password!)
       .then((result: any) => {
         observer.next(result);
         observer.complete();

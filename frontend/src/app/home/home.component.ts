@@ -23,6 +23,8 @@ export class HomeComponent {
   userSignIn: UsersModel;
   isForgotPassword: boolean;
   userForgotPassword: UsersModel;
+  isChangePassword: boolean;
+  userChangePassword: UsersModel;
   userSignUp: UsersModel;
   isConfirmSignUp: boolean;
   userConfirmSignUp: UsersModel;
@@ -38,6 +40,8 @@ export class HomeComponent {
     this.userSignIn = new UsersModel();
     this.isForgotPassword = false;
     this.userForgotPassword = new UsersModel();
+    this.isChangePassword = false;
+    this.userChangePassword = new UsersModel();
     this.userSignUp = new UsersModel();
     this.isConfirmSignUp = false;
     this.userConfirmSignUp = new UsersModel();
@@ -116,7 +120,41 @@ export class HomeComponent {
         .subscribe((message: string) => this.toastrService.success(message));
         form.reset();
 
-        this.isForgotPassword = true;
+        this.isForgotPassword = false;
+        this.isChangePassword = true;
+      }, error: (error: any) => {
+        this.translocoService.selectTranslate('error.problem')
+        .subscribe((message: string) => this.toastrService.error(message));
+
+        this.spinnerService.hide();
+      },
+    });
+  }
+
+  public changePassword(form: NgForm): void {
+    this.spinnerService.show();
+
+    if (form.invalid) {
+      for (const control in form.controls) {
+        form.controls[control].markAsTouched();
+      }
+      this.spinnerService.hide();
+      this.translocoService.selectTranslate('error.validation')
+      .subscribe((message: string) => this.toastrService.error(message));
+      return;
+    }
+
+    this.cognitoService.forgotPassword(this.userForgotPassword)
+    .subscribe({
+      next: (success: any) => {
+        this.userForgotPassword = new UsersModel();
+        this.spinnerService.hide();
+        this.translocoService.selectTranslate('home.changePasswordSuccess')
+        .subscribe((message: string) => this.toastrService.success(message));
+        form.reset();
+
+        this.isForgotPassword = false;
+        this.isChangePassword = false;
       }, error: (error: any) => {
         this.translocoService.selectTranslate('error.problem')
         .subscribe((message: string) => this.toastrService.error(message));

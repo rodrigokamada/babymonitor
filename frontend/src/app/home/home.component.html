@@ -28,7 +28,8 @@
 
 <section id="signIn">
   <div class="card mx-auto" data-aos="fade-up" data-aos-duration="1000">
-    <div class="card-body m-4" *ngIf="!isForgotPassword">
+
+    <div class="card-body m-4" *ngIf="!isForgotPassword && !isChangePassword">
       <h3 class="card-title mb-4 text-center">{{ "home.signIn" | transloco }}</h3>
       <form #formSignIn="ngForm">
         <div class="row">
@@ -69,7 +70,7 @@
         </div>
         <div class="row">
           <div class="col-sm-12 mb-2 text-end">
-            <a routerLink="" (click)="isForgotPassword = true" class="text-decoration-none">{{ "home.forgotPassword" | transloco }}</a>
+            <a routerLink="" (click)="isForgotPassword = true; isChangePassword = false;" class="text-decoration-none">{{ "home.forgotPassword" | transloco }}</a>
           </div>
         </div>
         <div class="row">
@@ -77,32 +78,9 @@
             <button type="button" class="btn btn-sm btn-primary" (click)="signIn(formSignIn)">{{ "button.signIn" | transloco }}</button>
           </div>
         </div>
-        <div class="row">
-          <div class="col-sm-12 mb-2 text-center">{{ "home.or" | transloco }}</div>
-        </div>
-        <!--div class="row">
-          <div class="col-sm-12 mb-2 d-grid">
-            <a class="btn btn-sm btn-social btn-github" (click)="signInWithGitHub()">
-              <span class="fab fa-github"></span> {{ "home.signInWith" | transloco }} GitHub
-            </a>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-12 mb-2 d-grid">
-            <a class="btn btn-sm btn-social btn-google" (click)="signInWithGoogle()">
-              {{ "home.signInWith" | transloco }} Google
-            </a>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-12 mb-2 d-grid">
-            <a class="btn btn-sm btn-social btn-facebook" (click)="signInWithFacebook()">
-              <span class="fab fa-facebook-f"></span> {{ "home.signInWith" | transloco }} Facebook
-            </a>
-          </div>
-        </div-->
       </form>
     </div>
+
     <div class="card-body m-4" *ngIf="isForgotPassword">
       <h3 class="card-title mb-4 text-center">{{ "home.forgotPassword" | transloco }}</h3>
       <form #formForgotPassword="ngForm">
@@ -124,8 +102,11 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-12 mb-2 text-end">
-            <a routerLink="" (click)="isForgotPassword = false" class="text-decoration-none">{{ "home.backSignIn" | transloco }}</a>
+          <div class="col-sm-6 mb-2 text-start">
+            <a routerLink="" (click)="isForgotPassword = false; isChangePassword = false;" class="text-decoration-none">{{ "home.backSignIn" | transloco }}</a>
+          </div>
+          <div class="col-sm-6 mb-2 text-end">
+            <a routerLink="" (click)="isForgotPassword = false; isChangePassword = true;" class="text-decoration-none">{{ "home.changePassword" | transloco }}</a>
           </div>
         </div>
         <div class="row">
@@ -135,6 +116,76 @@
         </div>
       </form>
     </div>
+
+    <div class="card-body m-4" *ngIf="isChangePassword">
+      <h3 class="card-title mb-4 text-center">{{ "home.changePassword" | transloco }}</h3>
+      <form #formChangePassword="ngForm">
+        <div class="row">
+          <div class="col-sm-12 mb-2">
+            <label for="emailChangePassword" class="form-label">{{ "home.email" | transloco }}:</label>
+            <input type="text" id="emailChangePassword" name="emailChangePassword" #emailChangePassword="ngModel" [(ngModel)]="userChangePassword.email" placeholder="{{ 'home.emailPlaceholder' | transloco }}" required minlength="1" emailValidator class="form-control form-control-sm" [class.is-invalid]="emailChangePassword.invalid && (emailChangePassword.dirty || emailChangePassword.touched)">
+            <div *ngIf="emailChangePassword.invalid && (emailChangePassword.dirty || emailChangePassword.touched)" class="invalid-feedback">
+              <div *ngIf="emailChangePassword.errors?.['required']">
+                {{ "error.required" | transloco }}
+              </div>
+              <div *ngIf="emailChangePassword.errors?.['minlength']">
+                {{ "error.minlength1" | transloco }}
+              </div>
+              <div *ngIf="!emailChangePassword.errors?.['required'] && emailChangePassword.errors?.['emailValidator']">
+                {{ "error.emailInvalid" | transloco }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 mb-2">
+            <label for="passwordChangePassword" class="form-label">{{ "home.password" | transloco }}:</label>
+            <div class="input-group input-group-sm">
+              <input [type]="userChangePassword.showPassword ? 'text' : 'password'" id="passwordChangePassword" name="passwordChangePassword" #passwordChangePassword="ngModel" [(ngModel)]="userChangePassword.password" required minlength="1" class="form-control form-control-sm" [class.is-invalid]="passwordChangePassword.invalid && (passwordChangePassword.dirty || passwordChangePassword.touched)" autocomplete="on">
+              <button type="button" class="btn btn-outline-secondary" (click)="userChangePassword.showPassword = !userChangePassword.showPassword">
+                <i class="fas" [ngClass]="{'fa-eye': !userChangePassword.showPassword, 'fa-eye-slash': userChangePassword.showPassword}"></i>
+              </button>
+              <div *ngIf="passwordChangePassword.invalid && (passwordChangePassword.dirty || passwordChangePassword.touched)" class="invalid-feedback">
+                <div *ngIf="passwordChangePassword.errors?.['required']">
+                  {{ "error.required" | transloco }}
+                </div>
+                <div *ngIf="passwordChangePassword.errors?.['minlength']">
+                  {{ "error.minlength1" | transloco }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 mb-2">
+            <label for="codeChangePassword" class="form-label">{{ "home.code" | transloco }}:</label>
+            <input type="text" id="codeChangePassword" name="codeChangePassword" #codeChangePassword="ngModel" [(ngModel)]="userChangePassword.code" placeholder="{{ 'home.codePlaceholder' | transloco }}" required minlength="1" class="form-control form-control-sm" [class.is-invalid]="codeChangePassword.invalid && (codeChangePassword.dirty || codeChangePassword.touched)">
+            <div *ngIf="codeChangePassword.invalid && (codeChangePassword.dirty || codeChangePassword.touched)" class="invalid-feedback">
+              <div *ngIf="codeChangePassword.errors?.['required']">
+                {{ "error.required" | transloco }}
+              </div>
+              <div *ngIf="codeChangePassword.errors?.['minlength']">
+                {{ "error.minlength1" | transloco }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 mb-2 text-start">
+            <a routerLink="" (click)="isForgotPassword = false; isChangePassword = false;" class="text-decoration-none">{{ "home.backSignIn" | transloco }}</a>
+          </div>
+          <div class="col-sm-6 mb-2 text-end">
+            <a routerLink="" (click)="isForgotPassword = true; isChangePassword = false;" class="text-decoration-none">{{ "home.forgotPassword" | transloco }}</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 mb-2 d-grid">
+            <button type="button" class="btn btn-sm btn-primary" (click)="changePassword(formChangePassword)">{{ "button.send" | transloco }}</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
   </div>
 </section>
 
