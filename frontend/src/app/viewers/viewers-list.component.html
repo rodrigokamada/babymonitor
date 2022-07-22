@@ -8,6 +8,10 @@
   </div>
 </div>
 
+<ul *ngIf="debugger && debugger.length > 0">
+  <li *ngFor="let debug of debugger">{{debug|json}}</li>
+</ul>
+
 <div class="row">
   <div class="col-sm-6">
     <div id="videos"></div>

@@ -31,6 +31,7 @@ export class ViewersListComponent implements AfterViewInit {
   videos: any;
   streamLocal: any;
   monitor: MonitorsModel;
+  debugger: any = [];
 
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
@@ -88,6 +89,7 @@ export class ViewersListComponent implements AfterViewInit {
       });
 
       this.socket.on('VIEW_CONNECT', (monitorId: string, peerId: string) => {
+        this.debugger.push(`Event [VIEW_CONNECT] received with monitorId [${monitorId}] and peerId [${peerId}]`);
         this.connectToPeer(peerId, streamLocal);
       });
     });
@@ -111,7 +113,7 @@ export class ViewersListComponent implements AfterViewInit {
     const call = this.peer.call(peerId, stream);
     const video = document.createElement('video');
     call.on('stream', (streamRemote: any) => {
-      this.addStreamToVideo(video, streamRemote);
+      this.addStreamToVideo(streamRemote, video);
     });
   }
 
