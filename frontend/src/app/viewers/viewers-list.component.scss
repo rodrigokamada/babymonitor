@@ -23,10 +23,3 @@
     width: 20px;
   }
 }
-
-:host ::ng-deep {
-  .videos > video {
-    max-width: 400px;
-    margin: 0px auto;
-  }
-}
