@@ -43,7 +43,7 @@ export class SocketServer {
               }
 
               logger.debug(`Emitting the event [VIEW_CONNECT] to [${v.socket_id}] with monitorId [${monitorId}] and peerId [${peerId}]`);
-              socket.to(v.socket_id).emit('VIEW_CONNECT', v.monitor_id, peerId);
+              socket.to(v.socket_id).emit('VIEW_CONNECT', peerId);
             }
           }
         } catch (error) {

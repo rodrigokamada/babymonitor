@@ -119,7 +119,8 @@
   "viewers": {
     "code": "Code",
     "inviteView": "Invite a viewer",
-    "viewers": "Viewers"
+    "viewers": "Viewers",
+    "waiting": "Waiting for a viewer"
   }
 
 }

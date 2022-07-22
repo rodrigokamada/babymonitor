@@ -8,12 +8,8 @@
   </div>
 </div>
 
-<ul *ngIf="debugger && debugger.length > 0">
-  <li *ngFor="let debug of debugger">{{debug|json}}</li>
-</ul>
-
 <div class="row">
-  <div class="col-sm-6">
-    <div id="videos"></div>
+  <div id="videos" class="col-sm-12">
+    <div class="waiting mx-auto my-5" *ngIf="waiting">{{ "viewers.waiting" | transloco }}</div>
   </div>
 </div>

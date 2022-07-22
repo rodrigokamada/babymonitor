@@ -31,7 +31,7 @@ export class ViewersListComponent implements AfterViewInit {
   videos: any;
   streamLocal: any;
   monitor: MonitorsModel;
-  debugger: any = [];
+  waiting: boolean;
 
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
@@ -45,6 +45,7 @@ export class ViewersListComponent implements AfterViewInit {
     this.videos = undefined;
     this.streamLocal = undefined;
     this.monitor = new MonitorsModel();
+    this.waiting = true;
   }
 
   ngAfterViewInit(): void {
@@ -68,15 +69,11 @@ export class ViewersListComponent implements AfterViewInit {
 
     this.videos = document.getElementById('videos');
 
-    const videoLocal = document.createElement('video');
-    videoLocal.muted = true;
-
     navigator.mediaDevices.getUserMedia({
       audio: true,
       video: true,
     }).then((streamLocal: any) => {
       this.streamLocal = streamLocal;
-      this.addStreamToVideo(streamLocal, videoLocal);
 
       this.peer.on('call', (call: any) => {
         call.answer(streamLocal);
@@ -88,8 +85,7 @@ export class ViewersListComponent implements AfterViewInit {
         });
       });
 
-      this.socket.on('VIEW_CONNECT', (monitorId: string, peerId: string) => {
-        this.debugger.push(`Event [VIEW_CONNECT] received with monitorId [${monitorId}] and peerId [${peerId}]`);
+      this.socket.on('VIEW_CONNECT', (peerId: string) => {
         this.connectToPeer(peerId, streamLocal);
       });
     });
@@ -113,6 +109,7 @@ export class ViewersListComponent implements AfterViewInit {
     const call = this.peer.call(peerId, stream);
     const video = document.createElement('video');
     call.on('stream', (streamRemote: any) => {
+      this.waiting = false;
       this.addStreamToVideo(streamRemote, video);
     });
   }
