@@ -98,6 +98,8 @@ export class ViewersListComponent implements AfterViewInit {
   }
 
   private addStreamToVideo(stream: any, video: any): void {
+    this.waiting = false;
+
     video.srcObject = stream;
     video.addEventListener('loadedmetadata', () => {
       video.play();
@@ -109,7 +111,6 @@ export class ViewersListComponent implements AfterViewInit {
     const call = this.peer.call(peerId, stream);
     const video = document.createElement('video');
     call.on('stream', (streamRemote: any) => {
-      this.waiting = false;
       this.addStreamToVideo(streamRemote, video);
     });
   }
