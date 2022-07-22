@@ -37,7 +37,12 @@ export class SocketServer {
           const viewers = await viewersController.getViewersByMonitorId(monitorId);
           if (viewers && viewers.length > 0) {
             for (const v of viewers) {
-              logger.debug(`Emitting the event [VIEW_CONNECT] to monitorId [${monitorId}] and peerId [${peerId}]`);
+              if (v.socket_id === socket.id) {
+                logger.debug(`Skipping the event [VIEW_CONNECT] to [${v.socket_id}] with monitorId [${monitorId}] and peerId [${peerId}]`);
+                continue;
+              }
+
+              logger.debug(`Emitting the event [VIEW_CONNECT] to [${v.socket_id}] with monitorId [${monitorId}] and peerId [${peerId}]`);
               socket.to(v.socket_id).emit('VIEW_CONNECT', v.monitor_id, v.peer_id);
             }
           }
