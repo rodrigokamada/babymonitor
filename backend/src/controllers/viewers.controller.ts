@@ -23,7 +23,7 @@ const getViewersByMonitorId = async (monitorId: string): Promise<any> => {
   try {
     const viewers = await mysql.execute(`SELECT * FROM viewers WHERE monitor_id = '${monitorId}'`);
 
-    logger.debug(`Viewers [${JSON.stringify(viewers)}] found by monitorId [${monitorId}]`);
+    logger.debug(`Viewers ${JSON.stringify(viewers)} found by monitorId [${monitorId}]`);
 
     return viewers;
   } catch (error) {
