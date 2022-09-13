@@ -1,5 +1,7 @@
-import createError from 'http-errors';
+import config from 'config';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import createError from 'http-errors';
 import express from 'express';
 import * as expressWinston from 'express-winston';
 
@@ -9,6 +11,9 @@ const app = express();
 app.use(expressWinston.logger({ winstonInstance: logger }));
 app.use(express.json());
 app.use(cookieParser());
+
+logger.info('Starting the CORS settings');
+app.use(cors(config.get('cors')));
 
 app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
   const urlPath = req.url;

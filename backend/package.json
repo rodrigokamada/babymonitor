@@ -20,6 +20,7 @@
   "devDependencies": {
     "@types/config": "^3.3.0",
     "@types/cookie-parser": "^1.4.3",
+    "@types/cors": "^2.8.12",
     "@types/http-errors": "^1.8.2",
     "@types/node": "^18.7.18",
     "rimraf": "^3.0.2",
@@ -29,6 +30,7 @@
   "dependencies": {
     "config": "^3.3.8",
     "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
     "express": "^4.18.1",
     "express-winston": "^4.2.0",
     "http-errors": "^2.0.0",
