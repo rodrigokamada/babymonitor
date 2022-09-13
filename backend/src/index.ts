@@ -5,10 +5,10 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'production';
 import config from 'config';
 import http from 'http';
 
+import logger from './utils/logger';
 import app from './app';
 
 const applicationConfig: any = config.get('application');
-const peerConfig: any = config.get('peer');
 
 function normalizePort(val: string) {
   const port = parseInt(val, 10);
@@ -39,11 +39,11 @@ function onError(error: any) {
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
-      console.error(`${bind} requires elevated privileges`);
+      logger.error(`${bind} requires elevated privileges`);
       process.exit(1);
       break;
     case 'EADDRINUSE':
-      console.error(`${bind} is already in use`);
+      logger.error(`${bind} is already in use`);
       process.exit(1);
       break;
     default:
@@ -51,13 +51,13 @@ function onError(error: any) {
   }
 }
 
-console.info(`Starting the server on the port [${port}]`);
+logger.info(`Starting the server on the port [${port}]`);
 const server = http.createServer(app);
 
 function onListening() {
   const addr: any = server.address();
   const bind: any = typeof addr === 'string' ? `pipe ${addr}` : `port ${addr.port}`;
-  console.info(`Listening on ${bind}`);
+  logger.info(`Listening on ${bind}`);
 }
 
 server.listen(port);
