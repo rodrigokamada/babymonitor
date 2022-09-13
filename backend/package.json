@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "author": "Rodrigo Kamada <rodrigo@kamada.com.br> (https://github.com/rodrigokamada)",
+  "homepage": "https://github.com/rodrigokamada/babymonitor#readme",
   "license": "MIT",
   "main": "index.js",
   "scripts": {
