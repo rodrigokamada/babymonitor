@@ -8,7 +8,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": [
+    "amplify",
+    "aws",
+    "baby",
+    "hackathon",
+    "hashnode",
+    "monitor"
+  ],
   "devDependencies": {
     "rimraf": "^3.0.2",
     "ts-node": "^10.9.1",
