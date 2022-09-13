@@ -2,12 +2,12 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
+  "author": "Rodrigo Kamada <rodrigo@kamada.com.br> (https://github.com/rodrigokamada)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
   "license": "ISC",
   "dependencies": {
     "config": "^3.3.8"
