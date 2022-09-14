@@ -33,6 +33,7 @@
     "@ngneat/transloco": "^4.1.1",
     "@popperjs/core": "^2.11.6",
     "aos": "^2.3.4",
+    "aws-amplify": "^4.3.35",
     "bootstrap": "^5.2.1",
     "load-awesome": "^1.1.0",
     "ngx-sharebuttons": "^11.0.0",
