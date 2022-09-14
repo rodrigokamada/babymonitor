@@ -1,5 +1,16 @@
 {
 
+  "menu": {
+    "contact": "Contact",
+    "home": "Home",
+    "language": "Language",
+    "monitors": "Monitors",
+    "myAccount": "My account",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "signUp": "Sign up"
+  },
+
   "app": {
     "copyright": "Copyright © Baby Monitor. All rights reserved.",
     "hackathon1": "Open source application built with",

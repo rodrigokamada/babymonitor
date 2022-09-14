@@ -1,3 +1,86 @@
+<nav class="navbar navbar-expand-xl fixed-top navbar-transition">
+
+  <a class="navbar-brand d-flex align-items-center" routerLink="." (click)="clickBrand()" data-aos="fade-right" data-aos-duration="1000">
+    <img src="assets/images/logo.png" alt="" class="navbar-transition me-3" />
+    <h1>Baby Monitor</h1>
+  </a>
+
+  <button class="navbar-toggler border-0" type="button" (click)="toggle = !toggle">
+    <div class="navbar-toggler-icon-animate" [ngClass]="{'open': toggle}"><span></span><span></span><span></span></div>
+  </button>
+
+  <div [ngbCollapse]="!toggle" class="collapse navbar-collapse flex-row-reverse">
+    <!-- Not authenticated -->
+    <ul class="navbar-nav" *ngIf="!user">
+      <li class="nav-item align-self-center" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" (click)="toggle = false">
+        <a class="nav-link" (click)="goTop()">
+          <i class="fas fa-home pe-1"></i>
+          {{ "menu.home" | transloco | uppercase }}
+        </a>
+      </li>
+      <li class="nav-item align-self-center" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" (click)="toggle = false">
+        <a class="nav-link" routerLink="/home" fragment="signIn">
+          <i class="fas fa-sign-in-alt pe-1"></i>
+          {{ "menu.signIn" | transloco | uppercase }}
+        </a>
+      </li>
+      <li class="nav-item align-self-center" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" (click)="toggle = false">
+        <a class="nav-link" routerLink="/home" fragment="signUp">
+          <i class="fas fa-user-plus pe-1"></i>
+          {{ "menu.signUp" | transloco | uppercase }}
+        </a>
+      </li>
+      <li class="nav-item align-self-center" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" (click)="toggle = false">
+        <a class="nav-link" routerLink="/home" fragment="contact">
+          <i class="fas fa-comment pe-1"></i>
+          {{ "menu.contact" | transloco | uppercase }}
+        </a>
+      </li>
+    </ul>
+
+    <!-- Authenticated -->
+    <ul class="navbar-nav" *ngIf="user">
+      <li class="nav-item align-self-center" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" (click)="toggle = false">
+        <a class="nav-link" routerLink="/monitors" routerLinkActive="active">
+          <i class="fas fa-users-rectangle pe-1"></i>
+          {{ "menu.monitors" | transloco | uppercase }}
+        </a>
+      </li>
+      <li ngbDropdown class="nav-item align-self-center text-center">
+        <a id="navbarProfile" ngbDropdownToggle class="nav-link d-inline-block text-center menu-profile">
+          <ng-template [ngIf]="user.image" [ngIfElse]="menuWithoutImage">
+            <img src="{{ user.image }}" alt="{{ user.name || user.firstLetter }}" class="rounded-circle">
+          </ng-template>
+          <ng-template #menuWithoutImage>
+            <div class="rounded-circle"><span>{{ user.firstLetter }}</span></div>
+          </ng-template>
+        </a>
+        <div ngbDropdownMenu class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarProfile">
+          <div class="dropdown-item p-3 text-center submenu-profile">
+            <ng-template [ngIf]="user.image" [ngIfElse]="submenuWithoutImage">
+              <img src="{{ user.image }}" alt="{{ user.name || user.firstLetter }}" class="rounded-circle">
+            </ng-template>
+            <ng-template #submenuWithoutImage>
+              <div class="rounded-circle"><span>{{ user.firstLetter }}</span></div>
+            </ng-template>
+            <ng-template [ngIf]="user.name">
+              <div class="pt-2"><small>{{ user.name }}</small></div>
+            </ng-template>
+            <ng-template [ngIf]="!user.name && user.email">
+              <div class="pt-2"><small>{{ user.email }}</small></div>
+            </ng-template>
+          </div>
+          <a class="dropdown-item" routerLink="/users" routerLinkActive="active" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" (click)="toggle = false">
+            {{ "menu.myAccount" | transloco }}
+          </a>
+          <a class="dropdown-item" (click)="signOut()" routerLinkActive="active" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" (click)="toggle = false">
+            {{ "menu.signOut" | transloco }}
+          </a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
 
 <div class="container-fluid">
   <router-outlet></router-outlet>
