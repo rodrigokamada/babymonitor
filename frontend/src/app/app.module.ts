@@ -8,6 +8,9 @@ import { ToastrModule } from 'ngx-toastr';
 import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 
+// Locales
+import '@angular/common/locales/global/en';
+
 // Modules
 import { AppRoutingModule } from './app-routing.module';
 import { TranslocoRootModule } from './shared/modules/transloco-root.module';
