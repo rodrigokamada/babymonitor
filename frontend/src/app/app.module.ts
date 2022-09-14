@@ -2,10 +2,11 @@ import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 // Modules
-import { TranslocoRootModule } from './shared/modules/transloco-root.module';
 import { AppRoutingModule } from './app-routing.module';
+import { TranslocoRootModule } from './shared/modules/transloco-root.module';
 
 // Components
 import { AppComponent } from './app.component';
@@ -18,8 +19,9 @@ import { AppComponent } from './app.component';
     BrowserModule,
     BrowserAnimationsModule,
     NgbModule,
-    AppRoutingModule,
+    NgxSpinnerModule,
     // Modules
+    AppRoutingModule,
     TranslocoRootModule,
   ],
   providers: [
