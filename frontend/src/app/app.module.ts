@@ -1,5 +1,6 @@
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 // Modules
 import { TranslocoRootModule } from './shared/modules/transloco-root.module';
@@ -12,6 +13,7 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
+    NgbModule,
     AppRoutingModule,
     // Modules
     TranslocoRootModule,
