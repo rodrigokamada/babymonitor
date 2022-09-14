@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { ToastrModule } from 'ngx-toastr';
 
 // Modules
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +21,12 @@ import { AppComponent } from './app.component';
     BrowserAnimationsModule,
     NgbModule,
     NgxSpinnerModule,
+    ToastrModule.forRoot({
+      timeOut: 15 * 1000,
+      closeButton: true,
+      enableHtml: true,
+      progressBar: true,
+    }),
     // Modules
     AppRoutingModule,
     TranslocoRootModule,
