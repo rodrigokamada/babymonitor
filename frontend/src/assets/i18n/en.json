@@ -1,3 +1,12 @@
 {
 
+  "app": {
+    "copyright": "Copyright © Baby Monitor. All rights reserved.",
+    "hackathon1": "Open source application built with",
+    "hackathon2": "for",
+    "hackathon3": "hackathon.",
+    "share": "Share with",
+    "signOutSuccess": "Thanks for visiting and come back soon!"
+  }
+
 }

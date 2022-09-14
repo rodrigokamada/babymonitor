@@ -1,9 +1,12 @@
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ToastrModule } from 'ngx-toastr';
+import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
+import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 
 // Modules
 import { AppRoutingModule } from './app-routing.module';
@@ -19,6 +22,7 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     NgbModule,
     NgxSpinnerModule,
     ToastrModule.forRoot({
@@ -27,6 +31,8 @@ import { AppComponent } from './app.component';
       enableHtml: true,
       progressBar: true,
     }),
+    ShareButtonsModule,
+    ShareIconsModule,
     // Modules
     AppRoutingModule,
     TranslocoRootModule,

@@ -7,6 +7,8 @@ import * as AOS from 'aos';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
+  user: any;
   
   constructor() {
     AOS.init();

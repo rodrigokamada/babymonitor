@@ -1,2 +1,31 @@
 
+<div class="container-fluid">
+  <router-outlet></router-outlet>
+</div>
+
+<div class="footer p-5 mt-5" *ngIf="!user">
+  <div class="col-sm-12 text-center pb-2">
+    {{ "app.share" | transloco }}
+  </div>
+  <div class="col-sm-12 text-center pb-5">
+    <share-buttons theme="circles-dark"
+      [include]="['facebook', 'twitter', 'linkedin', 'telegram', 'messenger', 'whatsapp', 'copy']"
+      [show]="8"
+      url=""
+      description="Baby Monitor"
+      twitterAccount="@rodrigokamada">
+    </share-buttons>
+  </div>
+  <div class="col-sm-12 text-center pb-5">
+    {{ "app.hackathon1" | transloco }}
+    <a href="https://aws.amazon.com/amplify/" target="_blank">AWS Amplity</a>
+    {{ "app.hackathon2" | transloco }}
+    <a href="https://hashnode.com/" target="_blank">Hashnode</a>
+    {{ "app.hackathon3" | transloco }}
+  </div>
+  <div class="col-sm-12 text-center">
+    {{ "app.copyright" | transloco }}
+  </div>
+</div>
+
 <ngx-spinner size="medium" type="ball-fussion"></ngx-spinner>

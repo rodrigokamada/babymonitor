@@ -3,7 +3,8 @@
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
 
+@import '~aos/dist/aos.css';
 @import '~@fortawesome/fontawesome-free/css/all.min.css';
 @import '~load-awesome/css/ball-fussion.min.css';
 @import '~ngx-toastr/toastr.css';
-@import '~aos/dist/aos.css';
+@import './node_modules/ngx-sharebuttons/themes/circles.scss';
