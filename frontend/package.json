@@ -23,6 +23,7 @@
     "@ngneat/transloco": "^4.1.1",
     "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.2.1",
+    "load-awesome": "^1.1.0",
     "rxjs": "~7.5.6",
     "tslib": "^2.4.0",
     "zone.js": "~0.11.8"
