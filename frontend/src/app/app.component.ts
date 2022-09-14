@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import * as AOS from 'aos';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'babymonitor';
+  
+  constructor() {
+    AOS.init();
+  }
+
 }
