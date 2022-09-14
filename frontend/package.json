@@ -1,6 +1,7 @@
 {
   "name": "babymonitor",
   "version": "1.0.0",
+  "description": "Open source application built with AWS Amplify for Hashnode hackathon.",
   "author": "Rodrigo Kamada <rodrigo@kamada.com.br> (https://github.com/rodrigokamada)",
   "homepage": "https://github.com/rodrigokamada/babymonitor#readme",
   "license": "MIT",
