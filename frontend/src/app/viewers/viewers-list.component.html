@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-sm-6">
+    <h1>{{ "viewers.viewers" | transloco }}</h1>
+  </div>
+  <div class="col-sm-6 text-end">
+    <select id="deviceSelect" name="deviceSelect" [(ngModel)]="deviceSelect" (ngModelChange)="loadStream()" *ngIf="devices && devices.length > 1" class="form-select form-select-sm mb-1">
+      <option *ngFor="let device of devices" [value]="device.key">{{ device.value | transloco }}</option>
+    </select>
+    <button type="button" class="btn btn-sm btn-primary mb-1 me-1" (click)="invite()">{{ "button.invite" | transloco }}</button>
+    <button type="button" class="btn btn-sm btn-secondary mb-1" (click)="back()">{{ "button.back" | transloco }}</button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12 text-center">
+    <div class="waiting mx-auto text-start my-5" *ngIf="waiting">{{ "viewers.waiting" | transloco }}</div>
+    <div id="videos">
+      <div id="video-overlay" *ngIf="!waiting"></div>
+      <i class="fas" [ngClass]="{'fa-eye': !showCamera, 'fa-eye-slash': showCamera}" (click)="toggleVideo()" *ngIf="!waiting"></i>
+    </div>
+  </div>
+</div>
+
+<!--ul *ngIf="debugger && debugger.length > 0">
+  <li *ngFor="let debug of debugger">{{debug|json}}</li>
+</ul-->

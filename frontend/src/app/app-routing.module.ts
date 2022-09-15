@@ -19,6 +19,11 @@ const routes: Routes = [
     canActivate: [ AuthenticationGuard ],
   },
   {
+    path: 'viewers',
+    loadChildren: () => import('./viewers/viewers.module').then(mod => mod.ViewersModule),
+    canActivate: [ AuthenticationGuard ],
+  },
+  {
     path: '**',
     redirectTo: 'monitors'
   },
@@ -26,7 +31,11 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, {
+      scrollPositionRestoration: 'enabled',
+      anchorScrolling: 'enabled',
+      enableTracing: false,
+    }),
   ],
   exports: [
     RouterModule,

@@ -1,0 +1,19 @@
+<div class="modal-header">
+  <h6 class="modal-title">{{ "viewers.inviteView" | transloco }}</h6>
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-sm-12 mb-2">
+      {{ "viewers.code" | transloco }}: <strong>{{ monitor?.code }}</strong>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 mb-2 text-center">
+      <canvas id="qrcode"></canvas>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-sm btn-secondary" (click)="activeModal.dismiss('Close click')">{{ "button.close" | transloco }}</button>
+</div>

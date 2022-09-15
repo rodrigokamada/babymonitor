@@ -38,10 +38,14 @@
     "load-awesome": "^1.1.0",
     "ng-recaptcha": "^10.0.0",
     "ngx-sharebuttons": "^11.0.0",
+    "ngx-socket-io": "^4.3.1",
     "ngx-spinner": "^14.0.0",
     "ngx-toastr": "^15.0.0",
+    "peerjs": "^1.4.7",
+    "qrcode": "^1.5.1",
     "rxjs": "~7.5.6",
     "tslib": "^2.4.0",
+    "uuid": "^9.0.0",
     "zone.js": "~0.11.8"
   },
   "devDependencies": {
@@ -50,6 +54,8 @@
     "@angular/compiler-cli": "^14.2.1",
     "@types/aos": "^3.0.4",
     "@types/jasmine": "~4.0.0",
+    "@types/qrcode": "^1.5.0",
+    "@types/uuid": "^8.3.4",
     "jasmine-core": "~4.4.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.1.1",

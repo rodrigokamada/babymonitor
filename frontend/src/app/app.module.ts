@@ -19,6 +19,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HomeModule } from './home/home.module';
 import { MonitorsModule } from './monitors/monitors.module';
 import { TranslocoRootModule } from './shared/modules/transloco-root.module';
+import { ViewersModule } from './viewers/viewers.module';
 
 // Components
 import { AppComponent } from './app.component';
@@ -46,6 +47,7 @@ import { AppComponent } from './app.component';
     HomeModule,
     MonitorsModule,
     TranslocoRootModule,
+    ViewersModule,
   ],
   providers: [
     {

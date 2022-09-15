@@ -100,6 +100,15 @@
     "notFound": "There are no monitors.",
     "saveSuccess": "The monitor was successfully saved!",
     "viewTooltip": "View this monitor"
+  },
+
+  "viewers": {
+    "cameraBack": "Camera Back",
+    "cameraFront": "Camera Front",
+    "code": "Code",
+    "inviteView": "Invite a viewer",
+    "viewers": "Viewers",
+    "waiting": "Waiting for a viewer"
   }
 
 }
