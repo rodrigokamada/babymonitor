@@ -1,0 +1,395 @@
+
+<section id="home" class="pt-5">
+  <div class="row justify-content-center">
+    <div class="col-sm-10">
+      <div class="row">
+        <div class="col-sm-6 py-3">
+          <h1 [innerHTML]="'home.description' | transloco" data-aos="zoom-in" data-aos-duration="1000"></h1>
+        </div>
+        <div class="col-sm-6 py-3">
+          <ul>
+            <li data-aos="fade-right" data-aos-delay="400" data-aos-duration="1000">
+              <h6>{{ "home.features1" | transloco }}</h6>
+            </li>
+            <li data-aos="fade-right" data-aos-delay="800" data-aos-duration="1000">
+              <h6>{{ "home.features2" | transloco }}</h6>
+            </li>
+            <li data-aos="fade-right" data-aos-delay="1200" data-aos-duration="1000">
+              <h6>{{ "home.features3" | transloco }}</h6>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section id="signIn">
+  <div class="card mx-auto" data-aos="fade-up" data-aos-duration="1000">
+
+    <div class="card-body m-4" *ngIf="!isForgotPassword && !isChangePassword">
+      <h3 class="card-title mb-4 text-center">{{ "home.signIn" | transloco }}</h3>
+      <form #formSignIn="ngForm">
+        <div class="row">
+          <div class="col-sm-12 mb-2">
+            <label for="emailSignIn" class="form-label">{{ "home.email" | transloco }}:</label>
+            <input type="text" id="emailSignIn" name="emailSignIn" #emailSignIn="ngModel" [(ngModel)]="userSignIn.email" placeholder="{{ 'home.emailPlaceholder' | transloco }}" required minlength="1" emailValidator class="form-control form-control-sm" [class.is-invalid]="emailSignIn.invalid && (emailSignIn.dirty || emailSignIn.touched)">
+            <div *ngIf="emailSignIn.invalid && (emailSignIn.dirty || emailSignIn.touched)" class="invalid-feedback">
+              <div *ngIf="emailSignIn.errors?.['required']">
+                {{ "error.required" | transloco }}
+              </div>
+              <div *ngIf="emailSignIn.errors?.['minlength']">
+                {{ "error.minlength1" | transloco }}
+              </div>
+              <div *ngIf="!emailSignIn.errors?.['required'] && emailSignIn.errors?.['emailValidator']">
+                {{ "error.emailInvalid" | transloco }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 mb-2">
+            <label for="passwordSignIn" class="form-label">{{ "home.password" | transloco }}:</label>
+            <div class="input-group input-group-sm">
+              <input [type]="userSignIn.showPassword ? 'text' : 'password'" id="passwordSignIn" name="passwordSignIn" #passwordSignIn="ngModel" [(ngModel)]="userSignIn.password" required minlength="1" class="form-control form-control-sm" [class.is-invalid]="passwordSignIn.invalid && (passwordSignIn.dirty || passwordSignIn.touched)" autocomplete="on">
+              <button type="button" class="btn btn-outline-secondary" (click)="userSignIn.showPassword = !userSignIn.showPassword">
+                <i class="fas" [ngClass]="{'fa-eye': !userSignIn.showPassword, 'fa-eye-slash': userSignIn.showPassword}"></i>
+              </button>
+              <div *ngIf="passwordSignIn.invalid && (passwordSignIn.dirty || passwordSignIn.touched)" class="invalid-feedback">
+                <div *ngIf="passwordSignIn.errors?.['required']">
+                  {{ "error.required" | transloco }}
+                </div>
+                <div *ngIf="passwordSignIn.errors?.['minlength']">
+                  {{ "error.minlength1" | transloco }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 mb-2 text-end">
+            <a routerLink="" (click)="isForgotPassword = true; isChangePassword = false;" class="text-decoration-none">{{ "home.forgotPassword" | transloco }}</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 mb-2 d-grid">
+            <button type="button" class="btn btn-sm btn-primary" (click)="signIn(formSignIn)">{{ "button.signIn" | transloco }}</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="card-body m-4" *ngIf="isForgotPassword">
+      <h3 class="card-title mb-4 text-center">{{ "home.forgotPassword" | transloco }}</h3>
+      <form #formForgotPassword="ngForm">
+        <div class="row">
+          <div class="col-sm-12 mb-2">
+            <label for="emailForgotPassword" class="form-label">{{ "home.email" | transloco }}:</label>
+            <input type="text" id="emailForgotPassword" name="emailForgotPassword" #emailForgotPassword="ngModel" [(ngModel)]="userForgotPassword.email" placeholder="{{ 'home.emailPlaceholder' | transloco }}" required minlength="1" emailValidator class="form-control form-control-sm" [class.is-invalid]="emailForgotPassword.invalid && (emailForgotPassword.dirty || emailForgotPassword.touched)">
+            <div *ngIf="emailForgotPassword.invalid && (emailForgotPassword.dirty || emailForgotPassword.touched)" class="invalid-feedback">
+              <div *ngIf="emailForgotPassword.errors?.['required']">
+                {{ "error.required" | transloco }}
+              </div>
+              <div *ngIf="emailForgotPassword.errors?.['minlength']">
+                {{ "error.minlength1" | transloco }}
+              </div>
+              <div *ngIf="!emailForgotPassword.errors?.['required'] && emailForgotPassword.errors?.['emailValidator']">
+                {{ "error.emailInvalid" | transloco }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 mb-2 text-start">
+            <a routerLink="" (click)="isForgotPassword = false; isChangePassword = false;" class="text-decoration-none">{{ "home.backSignIn" | transloco }}</a>
+          </div>
+          <div class="col-sm-6 mb-2 text-end">
+            <a routerLink="" (click)="isForgotPassword = false; isChangePassword = true;" class="text-decoration-none">{{ "home.changePassword" | transloco }}</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 mb-2 d-grid">
+            <button type="button" class="btn btn-sm btn-primary" (click)="forgotPassword(formForgotPassword)">{{ "button.send" | transloco }}</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="card-body m-4" *ngIf="isChangePassword">
+      <h3 class="card-title mb-4 text-center">{{ "home.changePassword" | transloco }}</h3>
+      <form #formChangePassword="ngForm">
+        <div class="row">
+          <div class="col-sm-12 mb-2">
+            <label for="emailChangePassword" class="form-label">{{ "home.email" | transloco }}:</label>
+            <input type="text" id="emailChangePassword" name="emailChangePassword" #emailChangePassword="ngModel" [(ngModel)]="userChangePassword.email" placeholder="{{ 'home.emailPlaceholder' | transloco }}" required minlength="1" emailValidator class="form-control form-control-sm" [class.is-invalid]="emailChangePassword.invalid && (emailChangePassword.dirty || emailChangePassword.touched)">
+            <div *ngIf="emailChangePassword.invalid && (emailChangePassword.dirty || emailChangePassword.touched)" class="invalid-feedback">
+              <div *ngIf="emailChangePassword.errors?.['required']">
+                {{ "error.required" | transloco }}
+              </div>
+              <div *ngIf="emailChangePassword.errors?.['minlength']">
+                {{ "error.minlength1" | transloco }}
+              </div>
+              <div *ngIf="!emailChangePassword.errors?.['required'] && emailChangePassword.errors?.['emailValidator']">
+                {{ "error.emailInvalid" | transloco }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 mb-2">
+            <label for="passwordChangePassword" class="form-label">{{ "home.password" | transloco }}:</label>
+            <div class="input-group input-group-sm">
+              <input [type]="userChangePassword.showPassword ? 'text' : 'password'" id="passwordChangePassword" name="passwordChangePassword" #passwordChangePassword="ngModel" [(ngModel)]="userChangePassword.password" required minlength="1" class="form-control form-control-sm" [class.is-invalid]="passwordChangePassword.invalid && (passwordChangePassword.dirty || passwordChangePassword.touched)" autocomplete="on">
+              <button type="button" class="btn btn-outline-secondary" (click)="userChangePassword.showPassword = !userChangePassword.showPassword">
+                <i class="fas" [ngClass]="{'fa-eye': !userChangePassword.showPassword, 'fa-eye-slash': userChangePassword.showPassword}"></i>
+              </button>
+              <div *ngIf="passwordChangePassword.invalid && (passwordChangePassword.dirty || passwordChangePassword.touched)" class="invalid-feedback">
+                <div *ngIf="passwordChangePassword.errors?.['required']">
+                  {{ "error.required" | transloco }}
+                </div>
+                <div *ngIf="passwordChangePassword.errors?.['minlength']">
+                  {{ "error.minlength1" | transloco }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 mb-2">
+            <label for="codeChangePassword" class="form-label">{{ "home.code" | transloco }}:</label>
+            <input type="text" id="codeChangePassword" name="codeChangePassword" #codeChangePassword="ngModel" [(ngModel)]="userChangePassword.code" placeholder="{{ 'home.codePlaceholder' | transloco }}" required minlength="1" class="form-control form-control-sm" [class.is-invalid]="codeChangePassword.invalid && (codeChangePassword.dirty || codeChangePassword.touched)">
+            <div *ngIf="codeChangePassword.invalid && (codeChangePassword.dirty || codeChangePassword.touched)" class="invalid-feedback">
+              <div *ngIf="codeChangePassword.errors?.['required']">
+                {{ "error.required" | transloco }}
+              </div>
+              <div *ngIf="codeChangePassword.errors?.['minlength']">
+                {{ "error.minlength1" | transloco }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 mb-2 text-start">
+            <a routerLink="" (click)="isForgotPassword = false; isChangePassword = false;" class="text-decoration-none">{{ "home.backSignIn" | transloco }}</a>
+          </div>
+          <div class="col-sm-6 mb-2 text-end">
+            <a routerLink="" (click)="isForgotPassword = true; isChangePassword = false;" class="text-decoration-none">{{ "home.forgotPassword" | transloco }}</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 mb-2 d-grid">
+            <button type="button" class="btn btn-sm btn-primary" (click)="changePassword(formChangePassword)">{{ "button.send" | transloco }}</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+
+
+<section id="signUp">
+  <div class="card mx-auto" data-aos="fade-up" data-aos-duration="1000">
+    <div class="card-body m-4" *ngIf="!isConfirmSignUp">
+      <h3 class="card-title mb-4 text-center">{{ "home.signUp" | transloco }}</h3>
+      <form #formSignUp="ngForm">
+        <div class="row">
+          <div class="col-sm-12 mb-2">
+            <label for="emailSignUp" class="form-label">{{ "home.email" | transloco }}:</label>
+            <input type="text" id="emailSignUp" name="emailSignUp" #emailSignUp="ngModel" [(ngModel)]="userSignUp.email" placeholder="{{ 'home.emailPlaceholder' | transloco }}" required minlength="1" emailValidator class="form-control form-control-sm" [class.is-invalid]="emailSignUp.invalid && (emailSignUp.dirty || emailSignUp.touched)">
+            <div *ngIf="emailSignUp.invalid && (emailSignUp.dirty || emailSignUp.touched)" class="invalid-feedback">
+              <div *ngIf="emailSignUp.errors?.['required']">
+                {{ "error.required" | transloco }}
+              </div>
+              <div *ngIf="emailSignUp.errors?.['minlength']">
+                {{ "error.minlength1" | transloco }}
+              </div>
+              <div *ngIf="!emailSignUp.errors?.['required'] && !emailSignUp.errors?.['minlength'] && emailSignUp.errors?.['emailValidator']">
+                {{ "error.emailInvalid" | transloco }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 mb-2">
+            <label for="passwordSignUp" class="form-label">{{ "home.password" | transloco }}:</label>
+            <div class="input-group input-group-sm">
+              <input [type]="userSignUp.showPassword ? 'text' : 'password'" id="passwordSignUp" name="passwordSignUp" #passwordSignUp="ngModel" [(ngModel)]="userSignUp.password" required minlength="1" class="form-control form-control-sm" [class.is-invalid]="passwordSignUp.invalid && (passwordSignUp.dirty || passwordSignUp.touched)" autocomplete="on">
+              <button type="button" class="btn btn-outline-secondary" (click)="userSignUp.showPassword = !userSignUp.showPassword">
+                <i class="fas" [ngClass]="{'fa-eye': !userSignUp.showPassword, 'fa-eye-slash': userSignUp.showPassword}"></i>
+              </button>
+              <div *ngIf="passwordSignUp.invalid && (passwordSignUp.dirty || passwordSignUp.touched)" class="invalid-feedback">
+                <div *ngIf="passwordSignUp.errors?.['required']">
+                  {{ "error.required" | transloco }}
+                </div>
+                <div *ngIf="passwordSignUp.errors?.['minlength']">
+                  {{ "error.minlength1" | transloco }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 mb-2 text-center">
+            <re-captcha id="recaptcha" name="recaptcha" #recaptcha="ngModel" [(ngModel)]="userSignUp.token" required [class.is-invalid]="recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)"></re-captcha>
+            <div *ngIf="recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)" class="invalid-feedback">
+              <div *ngIf="recaptcha.errors?.['required']">
+                {{ "error.required" | transloco }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 mb-2 d-grid">
+            <button type="button" class="btn btn-sm btn-primary" (click)="signUp(formSignUp)">{{ "button.signUp" | transloco }}</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 mb-2 text-end">
+            <a routerLink="" (click)="isConfirmSignUp = true" class="text-decoration-none">{{ "home.confirmYourSignUp" | transloco }}</a>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="card-body m-4" *ngIf="isConfirmSignUp">
+      <h3 class="card-title mb-4 text-center">{{ "home.confirmSignUp" | transloco }}</h3>
+      <form #formConfirmSignUp="ngForm">
+        <div class="row">
+          <div class="col-sm-12 mb-2">
+            <label for="emailConfirmSignUp" class="form-label">{{ "home.email" | transloco }}:</label>
+            <input type="text" id="emailConfirmSignUp" name="emailConfirmSignUp" #emailConfirmSignUp="ngModel" [(ngModel)]="userConfirmSignUp.email" placeholder="{{ 'home.emailPlaceholder' | transloco }}" required minlength="1" emailValidator class="form-control form-control-sm" [class.is-invalid]="emailConfirmSignUp.invalid && (emailConfirmSignUp.dirty || emailConfirmSignUp.touched)">
+            <div *ngIf="emailConfirmSignUp.invalid && (emailConfirmSignUp.dirty || emailConfirmSignUp.touched)" class="invalid-feedback">
+              <div *ngIf="emailConfirmSignUp.errors?.['required']">
+                {{ "error.required" | transloco }}
+              </div>
+              <div *ngIf="emailConfirmSignUp.errors?.['minlength']">
+                {{ "error.minlength1" | transloco }}
+              </div>
+              <div *ngIf="!emailConfirmSignUp.errors?.['required'] && !emailConfirmSignUp.errors?.['minlength'] && emailConfirmSignUp.errors?.['emailValidator']">
+                {{ "error.emailInvalid" | transloco }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 mb-2">
+            <label for="codeSignUp" class="form-label">{{ "home.code" | transloco }}:</label>
+            <input type="text" id="codeSignUp" name="codeSignUp" #codeSignUp="ngModel" [(ngModel)]="userConfirmSignUp.code" placeholder="{{ 'home.codePlaceholder' | transloco }}" required minlength="1" class="form-control form-control-sm" [class.is-invalid]="codeSignUp.invalid && (codeSignUp.dirty || codeSignUp.touched)">
+            <div *ngIf="codeSignUp.invalid && (codeSignUp.dirty || codeSignUp.touched)" class="invalid-feedback">
+              <div *ngIf="codeSignUp.errors?.['required']">
+                {{ "error.required" | transloco }}
+              </div>
+              <div *ngIf="codeSignUp.errors?.['minlength']">
+                {{ "error.minlength1" | transloco }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 mb-2 d-grid">
+            <button type="button" class="btn btn-sm btn-primary" (click)="confirmSignUp(formConfirmSignUp)">{{ "button.confirm" | transloco }}</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 mb-2 text-end">
+            <a routerLink="" (click)="isConfirmSignUp = false" class="text-decoration-none">{{ "home.backSignUp" | transloco }}</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+
+
+<section id="contact">
+  <div class="card mx-auto" data-aos="fade-up" data-aos-duration="1000">
+    <div class="card-body m-4">
+      <h3 class="card-title mb-4 text-center">{{ "home.contact" | transloco }}</h3>
+      <form #formContact="ngForm">
+        <div class="row">
+          <div class="col-sm-12 mb-2 text-center">
+            {{ "home.doubtSuggestionCritic" | transloco }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 mb-2 text-center">
+            {{ "home.sendMessage" | transloco }}
+          </div>
+        </div>
+        <div class="row pt-3">
+          <div class="col-sm-12 mb-2">
+            <label for="subject" class="form-label">{{ "home.subject" | transloco }}:</label>
+            <input type="text" id="subject" name="subject" #subject="ngModel" [(ngModel)]="contact.subject" placeholder="{{ 'home.subjectPlaceholder' | transloco }}" required minlength="1" maxlength="250" class="form-control form-control-sm" [class.is-invalid]="subject.invalid && (subject.dirty || subject.touched)">
+            <div *ngIf="subject.invalid && (subject.dirty || subject.touched)" class="invalid-feedback">
+              <div *ngIf="subject.errors?.['required']">
+                {{ "error.required" | transloco }}
+              </div>
+              <div *ngIf="subject.errors?.['minlength']">
+                {{ "error.minlength1" | transloco }}
+              </div>
+              <div *ngIf="subject.errors?.['maxlength']">
+                {{ "error.maxlength" | transloco: { length: 250 } }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 mb-2">
+            <label for="email" class="form-label">{{ "home.email" | transloco }}:</label>
+            <input type="text" id="email" name="email" #email="ngModel" [(ngModel)]="contact.email" placeholder="{{ 'home.emailPlaceholder' | transloco }}" required minlength="1" maxlength="250" emailValidator class="form-control form-control-sm" [class.is-invalid]="email.invalid && (email.dirty || email.touched)">
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="invalid-feedback">
+              <div *ngIf="email.errors?.['required']">
+                {{ "error.required" | transloco }}
+              </div>
+              <div *ngIf="email.errors?.['minlength']">
+                {{ "error.minlength1" | transloco }}
+              </div>
+              <div *ngIf="email.errors?.['maxlength']">
+                {{ "error.maxlength" | transloco: { length: 250 } }}
+              </div>
+              <div *ngIf="!email.errors?.['required'] && !email.errors?.['minlength'] && !email.errors?.['maxlength'] && email.errors?.['emailValidator']">
+                {{ "error.emailInvalid" | transloco }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 mb-2">
+            <label for="message" class="form-label">{{ "home.message" | transloco }}:</label>
+            <textarea id="message" name="message" #message="ngModel" [(ngModel)]="contact.message" placeholder="{{ 'home.messagePlaceholder' | transloco }}" rows="3" required minlength="1" maxlength="5000" class="form-control form-control-sm" [class.is-invalid]="message.invalid && (message.dirty || message.touched)"></textarea>
+            <div *ngIf="message.invalid && (message.dirty || message.touched)" class="invalid-feedback">
+              <div *ngIf="message.errors?.['required']">
+                {{ "error.required" | transloco }}
+              </div>
+              <div *ngIf="message.errors?.['minlength']">
+                {{ "error.minlength1" | transloco }}
+              </div>
+              <div *ngIf="message.errors?.['maxlength']">
+                {{ "error.maxlength" | transloco: { length: 5000 } }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 mb-2 text-center">
+            <re-captcha id="recaptcha" name="recaptcha" #recaptcha="ngModel" [(ngModel)]="contact.token" required [class.is-invalid]="recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)"></re-captcha>
+            <div *ngIf="recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)" class="invalid-feedback">
+              <div *ngIf="recaptcha.errors?.['required']">
+                {{ "error.required" | transloco }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 mb-2 d-grid">
+            <button type="button" class="btn btn-sm btn-primary" (click)="sendContact(formContact)">{{ "button.send" | transloco }}</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

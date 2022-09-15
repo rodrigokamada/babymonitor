@@ -1,0 +1,21 @@
+section > .card {
+  max-width: 600px;
+  border-radius: 1rem;
+  border-width: 0px;
+}
+
+#signIn, #signUp, #contact {
+  padding-top: 9rem !important;
+}
+
+#signIn > .card {
+  background-color: #ffdbdb;
+}
+
+#signUp > .card {
+  background-color: #fcfdcd;
+}
+
+#contact > .card {
+  background-color: #cff1fb;
+}

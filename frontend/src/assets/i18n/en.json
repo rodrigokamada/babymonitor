@@ -21,6 +21,21 @@
     "signUp": "Sign up"
   },
 
+  "button": {
+    "add": "Add",
+    "back": "Back",
+    "close": "Close",
+    "confirm": "Confirm",
+    "create": "Create",
+    "delete": "Delete",
+    "invite": "Invite",
+    "loadMore": "Load more",
+    "save": "Save",
+    "send": "Send",
+    "signIn": "Sign in",
+    "signUp": "Sign up"
+  },
+
   "app": {
     "copyright": "Copyright © Baby Monitor. All rights reserved.",
     "hackathon1": "Open source application built with",
@@ -28,6 +43,45 @@
     "hackathon3": "hackathon.",
     "share": "Share with",
     "signOutSuccess": "Thanks for visiting and come back soon!"
+  },
+
+  "home": {
+    "backSignIn": "Back to sign in", 
+    "backSignUp": "Back to sign up", 
+    "code": "Code",
+    "codePlaceholder": "123456",
+    "confirmSignUp": "Confirm Sign Up",
+    "confirmSignUpSuccess": "The sign up was successfully confirmed! Now you can sign in.",
+    "confirmYourSignUp": "Confirm your sign up",
+    "contact": "Contact",
+    "description": "Monitoring your baby in your hand.",
+    "doubtSuggestionCritic": "Do you have any doubt, suggestion or critic?",
+    "email": "Email",
+    "emailAlreadyExists": "Email already exists!",
+    "emailPlaceholder": "your-name@provider.com",
+    "features1": "Connection between mobile phones, tablets and computers.",
+    "features2": "Easy to use.",
+    "features3": "Free.",
+    "forgotPassword": "Forgot Password",
+    "forgotPasswordSuccess": "Use the code sent to your email to change your password.",
+    "message": "Message",
+    "messagePlaceholder": "Your message.",
+    "messageSent": "Message sent successfully. Wait for our contact.",
+    "password": "Password",
+    "passwordResetInstructions": "Receive the email with password reset instructions.",
+    "changePassword": "Change Password",
+    "changePasswordSuccess": "Your password was successfully changed!",
+    "sendMessage": "Send us a message using the form below.",
+    "signIn": "Sign In",
+    "signInInvalid": "Invalid email or password.",
+    "signInNotConfirm": "Email not confirmed. Check your email.",
+    "signInSuccess": "Welcome and have fun!",
+    "signUp": "Sign Up",
+    "signUpExpired": "Expired code. Check the new code in your email.",
+    "signUpInvalidPassword": "The password must be at least 8 characters length, contain at least 1 number, 1 special character, 1 uppercase letter and 1 lowercase letter.",
+    "signUpSuccess": "The sign up was successfully done! Confirm your sign up with the code received by email.",
+    "subject": "Subject",
+    "subjectPlaceholder": "A subject"
   }
 
 }

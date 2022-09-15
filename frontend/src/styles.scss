@@ -31,3 +31,12 @@ a, a:link, a:visited, a:hover, a:active {
   margin-top: 100px;
   padding: 15px;
 }
+
+
+re-captcha {
+  display: inline-block;
+}
+re-captcha.is-invalid > div {
+  border: 1px solid #dc3545 !important;
+  border-radius: 0.2rem;
+}
