@@ -82,6 +82,24 @@
     "signUpSuccess": "The sign up was successfully done! Confirm your sign up with the code received by email.",
     "subject": "Subject",
     "subjectPlaceholder": "A subject"
+  },
+
+  "monitors": {
+    "addSuccess": "Monitor with the code <b>{{code}}</b> was successfully added!",
+    "code": "Code",
+    "codePlaceholder": "123abc",
+    "create1": "Click here",
+    "create2": "to create a monitor and share with other users.",
+    "deleteConfirmation": "Do you really want to delete the monitor <b>{{code}}</b>?",
+    "deleteSuccess": "The monitor was successfully deleted!",
+    "deleteTooltip": "Delete this monitor",
+    "editTooltip": "Edit this monitor",
+    "monitors": "Monitors",
+    "name": "Name",
+    "namePlaceholder": "Some name",
+    "notFound": "There are no monitors.",
+    "saveSuccess": "The monitor was successfully saved!",
+    "viewTooltip": "View this monitor"
   }
 
 }

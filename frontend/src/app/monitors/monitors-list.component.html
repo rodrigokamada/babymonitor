@@ -1,0 +1,99 @@
+<div class="row">
+  <div class="col-sm-6">
+    <h1>{{ "monitors.monitors" | transloco }}</h1>
+  </div>
+  <div class="col-sm-6 text-end">
+    <button type="button" class="btn btn-sm btn-primary mb-1 me-1" (click)="openForm()">{{ "button.create" | transloco }}</button>
+    <button type="button" class="btn btn-sm btn-secondary mb-1" (click)="openAdd(addModal)">{{ "button.add" | transloco }}</button>
+  </div>
+</div>
+
+<div *ngIf="notFound" class="text-center">
+  <div>{{ "monitors.notFound" | transloco }}</div>
+  <div><a routerLink="." (click)="openForm()">{{ "monitors.create1" | transloco }}</a> {{ "monitors.create2" | transloco }}</div>
+</div>
+
+<div *ngIf="monitorsList && monitorsList.length > 0" class="table-responsive mw-860 mx-auto">
+  <table class="table table-sm table-striped table-hover">
+    <thead>
+      <tr>
+        <th>{{ "monitors.code" | transloco }}</th>
+        <th>{{ "monitors.name" | transloco }}</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let monitor of monitorsList">
+        <td>{{ monitor.code }}</td>
+        <td>{{ monitor.name }}</td>
+        <td class="text-end">
+          <span ngbTooltip="{{ 'monitors.viewTooltip' | transloco }}" class="me-1">
+            <a routerLink="" (click)="openView(monitor)">
+              <i class="fa fa-sm fa-solid fa-video m-1 p-0"></i>
+            </a>
+          </span>
+          <span ngbTooltip="{{ 'monitors.editTooltip' | transloco }}" class="me-1">
+            <a routerLink="" (click)="openForm(monitor.id)">
+              <i class="fas fa-sm fa-edit fa-sm m-1 p-0"></i>
+            </a>
+          </span>
+          <span ngbTooltip="{{ 'monitors.deleteTooltip' | transloco }}">
+            <a routerLink="" (click)="openDelete(deleteModal, monitor)">
+              <i class="fas fa-sm fa-trash-alt m-1 p-0"></i>
+            </a>
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="text-center" *ngIf="monitorsList.length < total">
+  <button type="button" class="btn btn-sm btn-outline-secondary" (click)="load(false)">{{ "button.loadMore" | transloco }}</button>
+</div>
+
+<ng-template #addModal let-modal>
+  <div class="modal-header">
+    <h6 class="modal-title">{{ "monitors.monitors" | transloco }}</h6>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form #form="ngForm">
+      <div class="row">
+        <div class="col-sm-6 mb-2">
+          <label for="code" class="form-label">{{ "monitors.code" | transloco }}:</label>
+          <input type="text" id="code" name="code" #code="ngModel" [(ngModel)]="monitor!.code" placeholder="{{ 'monitors.codePlaceholder' | transloco }}" required minlength="1" maxlength="10" class="form-control form-control-sm" [class.is-invalid]="code.invalid && (code.dirty || code.touched)">
+          <div *ngIf="code.invalid && (code.dirty || code.touched)" class="invalid-feedback">
+            <div *ngIf="code.errors?.['required']">
+              {{ "error.required" | transloco }}
+            </div>
+            <div *ngIf="code.errors?.['minlength']">
+              {{ "error.minlength1" | transloco }}
+            </div>
+            <div *ngIf="code.errors?.['maxlength']">
+              {{ "error.maxlength" | transloco: { length: 10 } }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-primary" (click)="add(form)">{{ "button.add" | transloco }}</button>
+    <button type="button" class="btn btn-sm btn-secondary" (click)="modal.dismiss('Close click')">{{ "button.close" | transloco }}</button>
+  </div>
+</ng-template>
+
+<ng-template #deleteModal let-modal>
+  <div class="modal-header">
+    <h6 class="modal-title">{{ "monitors.monitors" | transloco }}</h6>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <p [innerHTML]="'monitors.deleteConfirmation' | transloco: { code: monitor?.code }"></p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-danger" (click)="delete()">{{ "button.delete" | transloco }}</button>
+    <button type="button" class="btn btn-sm btn-secondary" (click)="modal.dismiss('Close click')">{{ "button.close" | transloco }}</button>
+  </div>
+</ng-template>
