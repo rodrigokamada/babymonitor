@@ -1,5 +1,15 @@
 {
 
+  "error": {
+    "emailInvalid": "Invalid email format.",
+    "maxlength": "This field must have at most {{length}} characters.",
+    "minlength": "This field must have at least {{length}} characters.",
+    "minlength1": "This field must have at least 1 character.",
+    "problem": "A problem occurred! Please try again!",
+    "required": "This field is required.",
+    "validation": "Check and correct any validation errors!"
+  },
+
   "menu": {
     "contact": "Contact",
     "home": "Home",
