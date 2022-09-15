@@ -1,7 +1,7 @@
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ToastrModule } from 'ngx-toastr';
@@ -10,6 +10,9 @@ import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 
 // Locales
 import '@angular/common/locales/global/en';
+
+// Interceptors
+import { HttpHeaderInterceptor } from './shared/interceptors/http-header.interceptor';
 
 // Modules
 import { AppRoutingModule } from './app-routing.module';
@@ -46,6 +49,12 @@ import { AppComponent } from './app.component';
     {
       provide: LOCALE_ID,
       useValue: 'en',
+    },
+    // Interceptors
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpHeaderInterceptor,
+      multi: true,
     },
   ],
   bootstrap: [
