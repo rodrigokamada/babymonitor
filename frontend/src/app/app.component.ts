@@ -1,9 +1,13 @@
 import { Component } from '@angular/core';
 import { ViewportScroller } from '@angular/common';
 import { Router } from '@angular/router';
+import { TranslocoService } from '@ngneat/transloco';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 import * as AOS from 'aos';
 
 // Services
+import { CognitoService } from './shared/services/cognito.service';
 import { StorageService } from './shared/services/storage.service';
 
 @Component({
@@ -19,11 +23,25 @@ export class AppComponent {
   
   constructor(private viewport: ViewportScroller,
               private router: Router,
+              private translocoService: TranslocoService,
+              private spinnerService: NgxSpinnerService,
+              private toastrService: ToastrService,
+              private cognitoService: CognitoService,
               private storageService: StorageService) {
     this.languagesList = [];
     this.toggle = false;
 
     AOS.init();
+  }
+
+  ngOnInit(): void {
+    this.storageService.user.subscribe((user: any) => {
+      this.user = user;
+
+      if (this.user && this.user.locale) {
+        this.storageService.setLocale(this.user.locale);
+      }
+    });
   }
 
   ngAfterViewInit(): void {
@@ -61,6 +79,23 @@ export class AppComponent {
   }
 
   public signOut(): void {
+    this.spinnerService.show();
+
+    this.cognitoService.signOut()
+    .subscribe({
+      next: (success: any) => {
+        this.storageService.clear();
+        this.spinnerService.hide();
+        this.translocoService.selectTranslate('app.signOutSuccess')
+      .subscribe((message: string) => this.toastrService.success(message));
+
+        this.router.navigate(['/home']);
+      }, error: (error: any) => {
+        this.spinnerService.hide();
+        this.translocoService.selectTranslate('error.problem')
+      .subscribe((message: string) => this.toastrService.error(message));
+      },
+    });
   }
 
 }
