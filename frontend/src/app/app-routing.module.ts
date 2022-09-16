@@ -19,6 +19,11 @@ const routes: Routes = [
     canActivate: [ AuthenticationGuard ],
   },
   {
+    path: 'users',
+    loadChildren: () => import('./users/users.module').then(mod => mod.UsersModule),
+    canActivate: [ AuthenticationGuard ],
+  },
+  {
     path: 'viewers',
     loadChildren: () => import('./viewers/viewers.module').then(mod => mod.ViewersModule),
     canActivate: [ AuthenticationGuard ],
