@@ -7,9 +7,13 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { ToastrModule } from 'ngx-toastr';
 import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ShareIconsModule } from 'ngx-sharebuttons/icons';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 
 // Locales
 import '@angular/common/locales/global/en';
+
+// Environments
+import { environment } from '../environments/environment';
 
 // Interceptors
 import { HttpHeaderInterceptor } from './shared/interceptors/http-header.interceptor';
@@ -43,6 +47,10 @@ import { AppComponent } from './app.component';
     }),
     ShareButtonsModule,
     ShareIconsModule,
+    SocketIoModule.forRoot({
+      url: environment.server,
+      options: environment.socket,
+    } as SocketIoConfig),
     // Modules
     AppRoutingModule,
     HomeModule,
