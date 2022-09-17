@@ -14,6 +14,10 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then(mod => mod.HomeModule),
   },
   {
+    path: 'invite',
+    loadChildren: () => import('./invite/invite.module').then(mod => mod.InviteModule),
+  },
+  {
     path: 'monitors',
     loadChildren: () => import('./monitors/monitors.module').then(mod => mod.MonitorsModule),
     canActivate: [ AuthenticationGuard ],
