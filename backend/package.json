@@ -5,14 +5,6 @@
   "author": "Rodrigo Kamada <rodrigo@kamada.com.br> (https://github.com/rodrigokamada)",
   "homepage": "https://github.com/rodrigokamada/babymonitor#readme",
   "license": "MIT",
-  "main": "dist/index.js",
-  "scripts": {
-    "start": "node dist/index.js",
-    "start:live": "nodemon --exec ts-node src/index.ts",
-    "build": "rimraf dist && tsc",
-    "lint": "eslint 'src/**/*'",
-    "lint:fix": "eslint --fix 'src/**/*'"
-  },
   "keywords": [
     "amplify",
     "aws",
@@ -21,6 +13,14 @@
     "hashnode",
     "monitor"
   ],
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "start:live": "nodemon --exec ts-node src/index.ts",
+    "build": "rimraf dist && tsc",
+    "lint": "eslint 'src/**/*'",
+    "lint:fix": "eslint --fix 'src/**/*'"
+  },
   "devDependencies": {
     "@types/config": "^3.3.0",
     "@types/cookie-parser": "^1.4.3",
