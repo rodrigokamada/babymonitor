@@ -5,8 +5,9 @@
   "author": "Rodrigo Kamada <rodrigo@kamada.com.br> (https://github.com/rodrigokamada)",
   "homepage": "https://github.com/rodrigokamada/babymonitor#readme",
   "license": "MIT",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
+    "build": "rimraf dist && tsc",
     "lint": "eslint 'src/**/*'",
     "lint:fix": "eslint --fix 'src/**/*'"
   },
