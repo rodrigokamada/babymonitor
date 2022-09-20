@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ViewportScroller } from '@angular/common';
 import { Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
@@ -15,7 +15,7 @@ import { StorageService } from './shared/services/storage.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit, OnInit {
 
   user: any;
   languagesList: any[];
