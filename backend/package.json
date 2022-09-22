@@ -19,7 +19,7 @@
     "start:live": "nodemon --exec ts-node src/index.ts",
     "build": "rimraf dist && tsc",
     "serverless:start": "serverless offline start",
-    "serverless:deploy": "serverless deploy",
+    "serverless:deploy": "npm run build && serverless deploy",
     "lint": "eslint 'src/**/*'",
     "lint:fix": "eslint --fix 'src/**/*'"
   },
