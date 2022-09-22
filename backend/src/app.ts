@@ -6,6 +6,7 @@ import express from 'express';
 import * as expressWinston from 'express-winston';
 
 import logger from './utils/logger';
+import routes from './routes';
 
 const app = express();
 app.use(expressWinston.logger({ winstonInstance: logger }));
@@ -14,6 +15,9 @@ app.use(cookieParser());
 
 logger.info('Starting the CORS settings');
 app.use(cors(config.get('cors')));
+
+logger.info('Starting the routes');
+app.use('/', routes);
 
 app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
   const urlPath = req.url;
