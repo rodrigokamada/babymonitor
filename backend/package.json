@@ -24,7 +24,6 @@
     "lint:fix": "eslint --fix 'src/**/*'"
   },
   "devDependencies": {
-    "@types/aws-lambda": "^8.10.104",
     "@types/config": "^3.3.0",
     "@types/cookie-parser": "^1.4.3",
     "@types/cors": "^2.8.12",
@@ -42,7 +41,7 @@
     "typescript": "^4.8.3"
   },
   "dependencies": {
-    "aws-lambda": "^1.0.7",
+    "aws-amplify": "^4.3.36",
     "config": "^3.3.8",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
