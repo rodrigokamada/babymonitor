@@ -4,6 +4,7 @@ import cors from 'cors';
 import createError from 'http-errors';
 import express from 'express';
 import * as expressWinston from 'express-winston';
+import helmet from 'helmet';
 
 import logger from './utils/logger';
 import routes from './routes';
@@ -15,6 +16,9 @@ app.use(cookieParser());
 
 logger.info('Starting the CORS settings');
 app.use(cors(config.get('cors')));
+
+logger.info('Starting the Helmet settings');
+app.use(helmet());
 
 logger.info('Starting the routes');
 app.use('/', routes);
