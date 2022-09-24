@@ -210,4 +210,4 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "version": "0f39dee3e3f6083f036d020e1ed7040e"
-};
+} as any;
