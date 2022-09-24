@@ -35,17 +35,17 @@ router.post('/send', async (req: Request, res: Response, next: NextFunction) => 
   }
 
   try {
-    const contact = new ContactsModel({
+    const contactModel = new ContactsModel({
       subject: body.subject,
       email: body.email,
       message: body.message,
     });
 
-    logger.debug(`Inserting the contact [${JSON.stringify(contact)}]`);
+    logger.debug(`Inserting the contact [${JSON.stringify(contactModel)}]`);
 
-    const result = await DataStore.save(contact);
+    const contact = await DataStore.save(contactModel);
 
-    logger.debug(`Contact [${JSON.stringify(contact)}] inserted: ${result}`);
+    logger.debug(`Contact [${JSON.stringify(contact)}] inserted`);
 
     return res.status(201).json(contact);
   } catch (error) {
