@@ -26,4 +26,10 @@ module.exports = {
     aws_appsync_apiKey: process.env.AWS_AMPLIFY_API_KEY,
   },
 
+  cognito: {
+    userPoolId: process.env.COGNITO_USER_POOL_ID,
+    clientId: process.env.COGNITO_CLIENT_ID,
+    tokenUse: 'id',
+  },
+
 };
