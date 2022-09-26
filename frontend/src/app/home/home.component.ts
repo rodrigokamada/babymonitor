@@ -191,12 +191,18 @@ export class HomeComponent {
 
         this.isConfirmSignUp = true;
       }, error: (error: any) => {
+        console.log('error:', error);
+        console.log('error.code:', error.code);
         if (error && error.code === 'InvalidPasswordException') {
           this.translocoService.selectTranslate('home.signUpInvalidPassword')
           .subscribe((message: string) => this.toastrService.error(message));
         } else if (error && error.code === 'UsernameExistsException') {
+          console.log('error.code:', error.code);
           this.translocoService.selectTranslate('home.emailAlreadyExists')
-          .subscribe((message: string) => this.toastrService.error(message));
+          .subscribe((message: string) => {
+            console.log('message:', message);
+            this.toastrService.error(message);
+          });
         } else {
           this.translocoService.selectTranslate('error.problem')
           .subscribe((message: string) => this.toastrService.error(message));
