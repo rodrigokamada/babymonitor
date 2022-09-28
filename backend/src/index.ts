@@ -3,12 +3,14 @@ process.env.NODE_CONFIG_DIR = `${__dirname}/../config`;
 process.env.NODE_ENV = process.env.NODE_ENV || 'production';
 
 import config from 'config';
+import { ExpressPeerServer } from 'peer';
 import http from 'http';
 
 import logger from './utils/logger';
 import app from './app';
 
 const applicationConfig: any = config.get('application');
+const peerConfig: any = config.get('peer');
 
 function normalizePort(val: string) {
     const port = parseInt(val, 10);
@@ -53,6 +55,16 @@ function onError(error: any) {
 
 logger.info(`Starting the server on the port [${port}]`);
 const server = http.createServer(app);
+
+logger.info('Starting the Peer server');
+const peerServer = ExpressPeerServer(server, peerConfig);
+peerServer.on('connection', (client: any) => {
+  logger.info(`Peer id [${client.id}] connected`);
+});
+peerServer.on('disconnect', (client: any) => {
+  logger.info(`Peer id [${client.id}] disconnected`);
+});
+app.use(peerServer);
 
 function onListening() {
   const addr: any = server.address();

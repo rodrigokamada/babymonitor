@@ -51,6 +51,7 @@
     "got": "^11.8.5",
     "helmet": "^6.0.0",
     "http-errors": "^2.0.0",
+    "peer": "^0.6.1",
     "serverless-http": "^3.0.2",
     "winston": "^3.8.2"
   }

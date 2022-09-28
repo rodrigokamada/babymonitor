@@ -11,6 +11,11 @@ module.exports = {
   cors: {
   },
 
+  peer: {
+    debug: true,
+    path: '/v1',
+  },
+
   google: {
     recaptcha: {
       url: 'https://www.google.com/recaptcha/api/siteverify',
