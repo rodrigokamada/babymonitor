@@ -1,4 +1,4 @@
-import { Amplify } from 'aws-amplify';
+import { Amplify, DataStore } from 'aws-amplify';
 import config from 'config';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
@@ -11,6 +11,13 @@ import logger from './utils/logger';
 import routes from './routes';
 
 Amplify.configure(config.get('amplify'));
+DataStore.configure({
+  fullSyncInterval: 0, // minutes
+  maxRecordsToSync: 1,
+  errorHandler: (error: any) => {
+    console.warn('DataStore error:', error);
+  },
+});
 
 const app = express();
 app.use(expressWinston.logger({ winstonInstance: logger }));

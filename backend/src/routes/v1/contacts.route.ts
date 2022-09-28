@@ -1,4 +1,4 @@
-import { DataStore } from 'aws-amplify';
+import { DataStore } from '@aws-amplify/datastore';
 import config from 'config';
 import createError from 'http-errors';
 import got from 'got';

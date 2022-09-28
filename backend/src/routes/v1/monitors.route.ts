@@ -1,10 +1,11 @@
-import { DataStore } from 'aws-amplify';
+import { DataStore } from '@aws-amplify/datastore';
 import createError from 'http-errors';
 import { Request, Response, Router, NextFunction } from 'express';
 
 import authenticationMiddleware from '../../middlewares/authentication.middleware';
 import logger from '../../utils/logger';
 import { MonitorsModel, ViewersModel } from '../../models';
+import utils from '../../utils/utils';
 
 const router = Router();
 
@@ -62,6 +63,7 @@ router.post('/', authenticationMiddleware(), async (req: Request, res: Response,
 
   try {
     const monitorModel = new MonitorsModel({
+      code: utils.generateCode(),
       name: body.name,
     });
 
