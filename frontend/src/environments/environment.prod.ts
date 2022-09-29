@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  server: 'https://5sc4anrio3.execute-api.us-east-1.amazonaws.com/dev',
+  server: 'http://ec2-3-83-55-204.compute-1.amazonaws.com:3000',
   google: {
     recaptcha: {
       siteKey: '6LdTluEgAAAAANTwd7OMss-mMaLhNYpmuFs8w99U',
@@ -12,12 +12,12 @@ export const environment = {
   },
   peer: {
     debug: 0,
-    host: '5sc4anrio3.execute-api.us-east-1.amazonaws.com',
-    port: 443,
-    path: '/dev/v1',
-    secure: true,
+    host: 'ec2-3-83-55-204.compute-1.amazonaws.com',
+    port: 3000,
+    path: '/v1',
+    secure: false,
   },
   socket: {
-    path: '/dev/v1/socket.io',
+    path: '/v1/socket.io',
   },
 };
