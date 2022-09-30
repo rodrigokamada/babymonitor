@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  server: 'http://ec2-3-83-55-204.compute-1.amazonaws.com:3000',
+  server: 'https://aws1.kamada.com.br',
   google: {
     recaptcha: {
       siteKey: '6LdTluEgAAAAANTwd7OMss-mMaLhNYpmuFs8w99U',
@@ -12,8 +12,8 @@ export const environment = {
   },
   peer: {
     debug: 0,
-    host: 'ec2-3-83-55-204.compute-1.amazonaws.com',
-    port: 3000,
+    host: 'aws1.kamada.com.br',
+    port: 443,
     path: '/v1',
     secure: false,
   },
