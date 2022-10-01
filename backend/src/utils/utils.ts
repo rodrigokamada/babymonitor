@@ -7,7 +7,7 @@ const generateCode = (): String => {
   }
 
   return code.toUpperCase();
-}
+};
 
 export default {
   generateCode,
