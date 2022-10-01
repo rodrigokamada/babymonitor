@@ -11,6 +11,13 @@ module.exports = {
   cors: {
   },
 
+  socket: {
+    path: '/v1/socket.io',
+    cors: {
+      origin: '*',
+    },
+  },
+
   peer: {
     debug: true,
     path: '/v1',
