@@ -8,6 +8,7 @@ import http from 'http';
 
 import logger from './utils/logger';
 import app from './app';
+import { SocketServer } from './socket-server';
 
 const applicationConfig: any = config.get('application');
 const peerConfig: any = config.get('peer');
@@ -55,6 +56,9 @@ function onError(error: any) {
 
 logger.info(`Starting the server on the port [${port}]`);
 const server = http.createServer(app);
+
+const socketServer = new SocketServer(server);
+socketServer.init();
 
 logger.info('Starting the Peer server');
 const peerServer = ExpressPeerServer(server, peerConfig);
