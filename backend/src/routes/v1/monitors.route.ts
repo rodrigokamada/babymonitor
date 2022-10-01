@@ -17,17 +17,17 @@ router.get('/', authenticationMiddleware(), async (req: Request, res: Response, 
   try {
     logger.debug(`Searching the monitors by userId [${userId}]`);
 
-    const viewers = await DataStore.query(<any>ViewersModel, (viewer: any) => viewer.userId(userId));
+    const viewers = await DataStore.query(<any>ViewersModel, (viewer: any) => viewer.userId('eq', userId));
 
-    logger.debug(`Found [${JSON.stringify(viewers)}] viewers by userId [${userId}]`);
+    logger.debug(`Found ${JSON.stringify(viewers)} viewers by userId [${userId}]`);
 
     const total = await DataStore.query(<any>MonitorsModel, (monitor: any) => monitor.id('contains', viewers));
 
-    logger.debug(`Found [${JSON.stringify(total)}] monitors`);
+    logger.debug(`Found ${JSON.stringify(total)} monitors`);
 
     const monitors = await DataStore.query(<any>ViewersModel, (viewer: any) => viewer.id('contains', viewers), { page, limit: 50 });
 
-    logger.debug(`Found [${JSON.stringify(monitors)}] monitors`);
+    logger.debug(`Found ${JSON.stringify(monitors)} monitors`);
 
     return res.status(200).json({
       total: total.length,
